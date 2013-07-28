@@ -25,7 +25,7 @@ class Game
 
 
 	update:(dt)->
-		if pause
+		if @pause
 			return
 
 		for area in @areas

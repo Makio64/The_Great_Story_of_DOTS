@@ -361,7 +361,7 @@
 
     Game.prototype.update = function(dt) {
       var area, mobile, _i, _j, _len, _len1, _ref, _ref1;
-      if (pause) {
+      if (this.pause) {
         return;
       }
       _ref = this.areas;
