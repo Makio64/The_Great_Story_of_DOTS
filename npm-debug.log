@@ -1,0 +1,199 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', '-g', 'typescript' ]
+2 info using npm@1.2.0
+3 info using node@v0.8.17
+4 verbose read json /usr/local/lib/package.json
+5 verbose read json /usr/local/lib/package.json
+6 verbose cache add [ 'typescript', null ]
+7 silly cache add name=undefined spec="typescript" args=["typescript",null]
+8 verbose parsed url { pathname: 'typescript',
+8 verbose parsed url   path: 'typescript',
+8 verbose parsed url   href: 'typescript' }
+9 silly lockFile fb9da861-typescript typescript
+10 verbose lock typescript /Users/davidronai/.npm/fb9da861-typescript.lock
+11 silly lockFile fb9da861-typescript typescript
+12 verbose addNamed [ 'typescript', '' ]
+13 verbose addNamed [ null, '' ]
+14 silly lockFile b598c0ef-typescript typescript@
+15 verbose lock typescript@ /Users/davidronai/.npm/b598c0ef-typescript.lock
+16 silly addNameRange { name: 'typescript', range: '', hasData: false }
+17 verbose url raw typescript
+18 verbose url resolving [ 'https://registry.npmjs.org/', './typescript' ]
+19 verbose url resolved https://registry.npmjs.org/typescript
+20 info trying registry request attempt 1 at 09:16:39
+21 http GET https://registry.npmjs.org/typescript
+22 http 200 https://registry.npmjs.org/typescript
+23 silly registry.get cb [ 200,
+23 silly registry.get   { vary: 'Accept',
+23 silly registry.get     server: 'CouchDB/1.3.0 (Erlang OTP/R15B03)',
+23 silly registry.get     etag: '"5RFBOG3VAHYPF7926W1S98MBQ"',
+23 silly registry.get     date: 'Wed, 24 Jul 2013 07:16:41 GMT',
+23 silly registry.get     'content-type': 'application/json',
+23 silly registry.get     'content-length': '12144' } ]
+24 silly addNameRange number 2 { name: 'typescript', range: '', hasData: true }
+25 silly addNameRange versions [ 'typescript',
+25 silly addNameRange   [ '0.8.0', '0.8.1', '0.8.1-1', '0.8.2', '0.8.3', '0.9.0', '0.9.0-1' ] ]
+26 verbose addNamed [ 'typescript', '0.9.0-1' ]
+27 verbose addNamed [ '0.9.0-1', '0.9.0-1' ]
+28 silly lockFile 5b1b2052-typescript-0-9-0-1 typescript@0.9.0-1
+29 verbose lock typescript@0.9.0-1 /Users/davidronai/.npm/5b1b2052-typescript-0-9-0-1.lock
+30 silly lockFile 631028e7-ypescript-typescript-0-9-0-1-tgz https://registry.npmjs.org/typescript/-/typescript-0.9.0-1.tgz
+31 verbose lock https://registry.npmjs.org/typescript/-/typescript-0.9.0-1.tgz /Users/davidronai/.npm/631028e7-ypescript-typescript-0-9-0-1-tgz.lock
+32 verbose addRemoteTarball [ 'https://registry.npmjs.org/typescript/-/typescript-0.9.0-1.tgz',
+32 verbose addRemoteTarball   '921e05ddaf9464cae6e5283326d3179c97ee5d22' ]
+33 info retry fetch attempt 1 at 09:16:41
+34 verbose fetch to= /var/folders/gj/qbwp74413z7b_zj3b2ymd5wm0000gr/T/npm-86665/1374650201711-0.5402524671517313/tmp.tgz
+35 http GET https://registry.npmjs.org/typescript/-/typescript-0.9.0-1.tgz
+36 http 200 https://registry.npmjs.org/typescript/-/typescript-0.9.0-1.tgz
+37 silly shasum updated bytes 40960
+38 silly shasum updated bytes 40960
+39 silly shasum updated bytes 40960
+40 silly shasum updated bytes 40960
+41 silly shasum updated bytes 40960
+42 silly shasum updated bytes 40960
+43 silly shasum updated bytes 40960
+44 silly shasum updated bytes 40960
+45 silly shasum updated bytes 40960
+46 silly shasum updated bytes 40960
+47 silly shasum updated bytes 40960
+48 silly shasum updated bytes 40960
+49 silly shasum updated bytes 40960
+50 silly shasum updated bytes 40960
+51 silly shasum updated bytes 40960
+52 silly shasum updated bytes 6867
+53 info shasum 921e05ddaf9464cae6e5283326d3179c97ee5d22
+53 info shasum /var/folders/gj/qbwp74413z7b_zj3b2ymd5wm0000gr/T/npm-86665/1374650201711-0.5402524671517313/tmp.tgz
+54 verbose tar unpack /var/folders/gj/qbwp74413z7b_zj3b2ymd5wm0000gr/T/npm-86665/1374650201711-0.5402524671517313/tmp.tgz
+55 silly lockFile e39700e2-01711-0-5402524671517313-package /var/folders/gj/qbwp74413z7b_zj3b2ymd5wm0000gr/T/npm-86665/1374650201711-0.5402524671517313/package
+56 verbose lock /var/folders/gj/qbwp74413z7b_zj3b2ymd5wm0000gr/T/npm-86665/1374650201711-0.5402524671517313/package /Users/davidronai/.npm/e39700e2-01711-0-5402524671517313-package.lock
+57 silly gunzTarPerm modes [ '755', '644' ]
+58 silly gunzTarPerm extractEntry package.json
+59 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+60 silly gunzTarPerm extractEntry .npmignore
+61 silly gunzTarPerm modified mode [ '.npmignore', 438, 420 ]
+62 silly gunzTarPerm extractEntry bin/tsc.js
+63 silly gunzTarPerm modified mode [ 'bin/tsc.js', 438, 420 ]
+64 silly gunzTarPerm extractEntry bin/typescript.js
+65 silly gunzTarPerm modified mode [ 'bin/typescript.js', 438, 420 ]
+66 silly gunzTarPerm extractEntry bin/lib.d.ts
+67 silly gunzTarPerm modified mode [ 'bin/lib.d.ts', 438, 420 ]
+68 silly gunzTarPerm extractEntry bin/tsc
+69 silly gunzTarPerm modified mode [ 'bin/tsc', 438, 420 ]
+70 silly gunzTarPerm extractEntry CopyrightNotice.txt
+71 silly gunzTarPerm modified mode [ 'CopyrightNotice.txt', 438, 420 ]
+72 silly gunzTarPerm extractEntry LICENSE.txt
+73 silly gunzTarPerm modified mode [ 'LICENSE.txt', 438, 420 ]
+74 silly gunzTarPerm extractEntry README.txt
+75 silly gunzTarPerm modified mode [ 'README.txt', 438, 420 ]
+76 silly gunzTarPerm extractEntry ThirdPartyNoticeText.txt
+77 silly gunzTarPerm modified mode [ 'ThirdPartyNoticeText.txt', 438, 420 ]
+78 verbose read json /var/folders/gj/qbwp74413z7b_zj3b2ymd5wm0000gr/T/npm-86665/1374650201711-0.5402524671517313/package/package.json
+79 silly lockFile e39700e2-01711-0-5402524671517313-package /var/folders/gj/qbwp74413z7b_zj3b2ymd5wm0000gr/T/npm-86665/1374650201711-0.5402524671517313/package
+80 verbose from cache /var/folders/gj/qbwp74413z7b_zj3b2ymd5wm0000gr/T/npm-86665/1374650201711-0.5402524671517313/package/package.json
+81 verbose tar pack [ '/Users/davidronai/.npm/typescript/0.9.0-1/package.tgz',
+81 verbose tar pack   '/var/folders/gj/qbwp74413z7b_zj3b2ymd5wm0000gr/T/npm-86665/1374650201711-0.5402524671517313/package' ]
+82 verbose tarball /Users/davidronai/.npm/typescript/0.9.0-1/package.tgz
+83 verbose folder /var/folders/gj/qbwp74413z7b_zj3b2ymd5wm0000gr/T/npm-86665/1374650201711-0.5402524671517313/package
+84 silly lockFile 9322eac3-m-typescript-0-9-0-1-package-tgz /Users/davidronai/.npm/typescript/0.9.0-1/package.tgz
+85 verbose lock /Users/davidronai/.npm/typescript/0.9.0-1/package.tgz /Users/davidronai/.npm/9322eac3-m-typescript-0-9-0-1-package-tgz.lock
+86 silly lockFile 9322eac3-m-typescript-0-9-0-1-package-tgz /Users/davidronai/.npm/typescript/0.9.0-1/package.tgz
+87 silly lockFile 9d0d40c8-i-npm-typescript-0-9-0-1-package /Users/davidronai/.npm/typescript/0.9.0-1/package
+88 verbose lock /Users/davidronai/.npm/typescript/0.9.0-1/package /Users/davidronai/.npm/9d0d40c8-i-npm-typescript-0-9-0-1-package.lock
+89 silly lockFile 9d0d40c8-i-npm-typescript-0-9-0-1-package /Users/davidronai/.npm/typescript/0.9.0-1/package
+90 verbose tar unpack /Users/davidronai/.npm/typescript/0.9.0-1/package.tgz
+91 silly lockFile 9d0d40c8-i-npm-typescript-0-9-0-1-package /Users/davidronai/.npm/typescript/0.9.0-1/package
+92 verbose lock /Users/davidronai/.npm/typescript/0.9.0-1/package /Users/davidronai/.npm/9d0d40c8-i-npm-typescript-0-9-0-1-package.lock
+93 silly gunzTarPerm modes [ '755', '644' ]
+94 silly gunzTarPerm extractEntry package.json
+95 silly gunzTarPerm extractEntry .npmignore
+96 silly gunzTarPerm extractEntry bin/tsc.js
+97 silly gunzTarPerm extractEntry bin/typescript.js
+98 silly gunzTarPerm extractEntry bin/lib.d.ts
+99 silly gunzTarPerm extractEntry bin/tsc
+100 silly gunzTarPerm extractEntry CopyrightNotice.txt
+101 silly gunzTarPerm extractEntry LICENSE.txt
+102 silly gunzTarPerm extractEntry README.txt
+103 silly gunzTarPerm extractEntry ThirdPartyNoticeText.txt
+104 verbose read json /Users/davidronai/.npm/typescript/0.9.0-1/package/package.json
+105 silly lockFile 9d0d40c8-i-npm-typescript-0-9-0-1-package /Users/davidronai/.npm/typescript/0.9.0-1/package
+106 silly shasum updated bytes 40960
+107 silly shasum updated bytes 40960
+108 silly shasum updated bytes 40960
+109 silly shasum updated bytes 40960
+110 silly shasum updated bytes 40960
+111 silly shasum updated bytes 40960
+112 silly shasum updated bytes 40960
+113 silly shasum updated bytes 40960
+114 silly shasum updated bytes 40960
+115 silly shasum updated bytes 40960
+116 silly shasum updated bytes 40960
+117 silly shasum updated bytes 40960
+118 silly shasum updated bytes 40960
+119 silly shasum updated bytes 40960
+120 silly shasum updated bytes 40960
+121 silly shasum updated bytes 6903
+122 info shasum 20cca7b22f4298279b432af3fa91566517d4eb56
+122 info shasum /Users/davidronai/.npm/typescript/0.9.0-1/package.tgz
+123 verbose from cache /Users/davidronai/.npm/typescript/0.9.0-1/package/package.json
+124 verbose chmod /Users/davidronai/.npm/typescript/0.9.0-1/package.tgz 644
+125 verbose chown /Users/davidronai/.npm/typescript/0.9.0-1/package.tgz [ 504, 20 ]
+126 silly lockFile 631028e7-ypescript-typescript-0-9-0-1-tgz https://registry.npmjs.org/typescript/-/typescript-0.9.0-1.tgz
+127 silly lockFile 5b1b2052-typescript-0-9-0-1 typescript@0.9.0-1
+128 silly lockFile b598c0ef-typescript typescript@
+129 silly resolved [ { name: 'typescript',
+129 silly resolved     author: { name: 'Microsoft Corp.' },
+129 silly resolved     homepage: 'http://typescriptlang.org/',
+129 silly resolved     version: '0.9.0-1',
+129 silly resolved     licenses: [ [Object] ],
+129 silly resolved     description: 'TypeScript is a language for application scale JavaScript development',
+129 silly resolved     keywords: [ 'TypeScript', 'Microsoft', 'compiler', 'language', 'javascript' ],
+129 silly resolved     bugs: { url: 'http://typescript.codeplex.com/workitem/list/basic' },
+129 silly resolved     repository: { type: 'git', url: 'https://git01.codeplex.com/typescript' },
+129 silly resolved     preferGlobal: true,
+129 silly resolved     main: './bin/typescript.js',
+129 silly resolved     bin: { tsc: './bin/tsc' },
+129 silly resolved     engines: { node: '>=0.8.0' },
+129 silly resolved     devDependencies: { jake: 'latest' },
+129 silly resolved     readme: '# TypeScript\r\n\r\nScalable JavaScript development with types, classes and modules.\r\n\r\n## Install\r\n\r\n  npm install -g typescript\r\n\r\n## Usage\r\n\r\n  tsc hello.ts\r\n  \r\n\r\n## Build\r\n\r\n1.  Install Node if you haven\'t already (http://nodejs.org/)\r\n2.  Install Jake, the tool we use to build our compiler (https://github.com/mde/jake). To do this, run "npm install -g jake".\r\n3.  To use jake, run one of the following commands: \r\n    - jake local - This builds the compiler. The output is in built/local in the public directory \r\n    - jake clean - deletes the build compiler \r\n    - jake LKG - This replaces the LKG (last known good) version of the compiler with the built one.\r\n        - This is a bootstrapping step to be executed whenever the built compiler reaches a stable state.\r\n    - jake tests - This builds the test infrastructure, using the built compiler. \r\n    - jake runtests - This runs the tests, using the built compiler and built test infrastructure. \r\n        - You can also override the host or specify a test for this command. Use host=<hostName> or tests=<testPath>. \r\n    - jake baseline-accept - This replaces the baseline test results with the results obtained from jake runtests. \r\n    - jake -T lists the above commands. \r\n',
+129 silly resolved     readmeFilename: 'README.txt',
+129 silly resolved     _id: 'typescript@0.9.0-1',
+129 silly resolved     dist: { shasum: '20cca7b22f4298279b432af3fa91566517d4eb56' },
+129 silly resolved     _from: 'typescript' } ]
+130 info install typescript@0.9.0-1 into /usr/local/lib
+131 info installOne typescript@0.9.0-1
+132 verbose from cache /Users/davidronai/.npm/typescript/0.9.0-1/package/package.json
+133 info /usr/local/lib/node_modules/typescript unbuild
+134 verbose read json /usr/local/lib/node_modules/typescript/package.json
+135 verbose tar unpack /Users/davidronai/.npm/typescript/0.9.0-1/package.tgz
+136 silly lockFile 5355178f-ocal-lib-node-modules-typescript /usr/local/lib/node_modules/typescript
+137 verbose lock /usr/local/lib/node_modules/typescript /Users/davidronai/.npm/5355178f-ocal-lib-node-modules-typescript.lock
+138 silly gunzTarPerm modes [ '755', '644' ]
+139 error Error: EACCES, mkdir '/usr/local/lib/node_modules/typescript'
+139 error  { [Error: EACCES, mkdir '/usr/local/lib/node_modules/typescript']
+139 error   errno: 3,
+139 error   code: 'EACCES',
+139 error   path: '/usr/local/lib/node_modules/typescript',
+139 error   fstream_type: 'Directory',
+139 error   fstream_path: '/usr/local/lib/node_modules/typescript',
+139 error   fstream_class: 'DirWriter',
+139 error   fstream_stack:
+139 error    [ 'DirWriter._create (/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23)',
+139 error      '/usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:37:53',
+139 error      'Object.oncomplete (fs.js:297:15)' ] }
+140 error Please try running this command again as root/Administrator.
+141 error System Darwin 12.4.0
+142 error command "node" "/usr/local/bin/npm" "install" "-g" "typescript"
+143 error cwd /Users/davidronai/Desktop/github/The Line Attack
+144 error node -v v0.8.17
+145 error npm -v 1.2.0
+146 error path /usr/local/lib/node_modules/typescript
+147 error fstream_path /usr/local/lib/node_modules/typescript
+148 error fstream_type Directory
+149 error fstream_class DirWriter
+150 error code EACCES
+151 error errno 3
+152 error stack Error: EACCES, mkdir '/usr/local/lib/node_modules/typescript'
+153 error fstream_stack DirWriter._create (/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23)
+153 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:37:53
+153 error fstream_stack Object.oncomplete (fs.js:297:15)
+154 verbose exit [ 3, true ]
