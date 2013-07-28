@@ -71,7 +71,7 @@ class ShapeCreation
 
 
 		else if Game.instance.canSquare and isSquare(@corners)
-			area.build( new Mine() )
+			@area.build( new Mine(Country.Dots) )
 			TweenLite.to(@drawArea.scale,.3,{x:1.2,y:1.2})
 			TweenLite.to(@drawArea,.3,{alpha:0})
 

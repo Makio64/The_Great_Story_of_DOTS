@@ -21,7 +21,10 @@ class StoryManager
 				@buildCastleSucessStep,
 				@ennemyVillageStep,
 				@moveYourUnitStep,
-				@winFirstBattleStep
+				@winFirstBattleStep,
+				@buildMineSucessStep,
+				@firstBattleStep,
+				@flyingCastleStep
 			]
 		return
 
@@ -100,22 +103,48 @@ class StoryManager
 		Game.instance.canConstruct = false
 		Game.instance.canTriangle = false
 		StoryManager.instance.displayText("#story_03", 0)
-		setTimeout( StoryManager.instance.nextStep, 1500)
+		setTimeout( StoryManager.instance.nextStep, 2000)
 		return
 
 	
 	ennemyVillageStep:()->
 		DisplayController.instance.display(-375,-143,384,192,0,false)
-		StoryManager.instance.displayText("#story_04", 0)
-		setTimeout( StoryManager.instance.nextStep, 1500)
+		StoryManager.instance.displayText("#story_04", 2)
+		setTimeout( StoryManager.instance.nextStep, 6000)
+		Game.instance.canLine = true
 		return
 
 	
 	moveYourUnitStep:()->
-		Game.instance.canLine = true
+		StoryManager.instance.conditionChecker = new VillageConditionChecker()
 		StoryManager.instance.displayText("#story_05", 0)
 		return
 
 	winFirstBattleStep:()->
+		StoryManager.instance.displayText("#story_06", 0)
+		StoryManager.instance.displayText("#story_07", 3)
+		StoryManager.instance.conditionChecker = new MineConditionChecker()
+		Game.instance.canSquare = true
+		Game.instance.canLine = false
+		Game.instance.canConstruct = true
+		return
+
+
+	buildMineSucessStep:()->
+		StoryManager.instance.displayText("#story_08", 0)
+		Game.instance.canTriangle = true
+		Game.instance.canSquare = true
+		Game.instance.canConstruct = true
+		Game.instance.canLine = true
+
+		setTimeout( StoryManager.instance.nextStep, 3000 )
+		return
+
+	firstBattleStep:()->
+		StoryManager.instance.displayText("#story_09", 0)
+		DisplayController.instance.display(-375,-143,384,672,0,false)
+		return
+
+	flyingCastleStep:()->
 		return
 

@@ -2,8 +2,9 @@ class ConstructionArea extends PIXI.Sprite
 
 	building 		: null
 
-	constructor:()->
-		super(PIXI.Texture.fromImage "./img/empty_s.png")
+	constructor:(texture)->
+		texture ?= PIXI.Texture.fromImage "./img/empty_s.png"
+		super( texture )
 		@anchor.x = .5
 		@anchor.y = .5
 		return

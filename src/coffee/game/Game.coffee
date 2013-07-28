@@ -8,6 +8,8 @@ class Game
 	canSquare			: false
 	canTriangle 		: false
 
+	pause 				: false
+
 	map 				: null
 	areas 				: null
 	mobiles 			: null
@@ -23,8 +25,13 @@ class Game
 
 
 	update:(dt)->
+		if pause
+			return
+
 		for area in @areas
 			area.update(dt)
+		for mobile in @mobiles
+			mobile.update(dt)
 
 		@lineG += 1
 		
@@ -84,8 +91,8 @@ class Game
 		Game.stage.addChild(mobile)
 		return
 
-	removemobile:(mobile)->
-		idx = mobiles.indexOf(mobile)
-		mobiles.slice(idx,1)
+	removeMobile:(mobile)->
+		idx = @mobiles.indexOf(mobile)
+		@mobiles.slice(idx,1)
 		Game.stage.removeChild(mobile)
 		return

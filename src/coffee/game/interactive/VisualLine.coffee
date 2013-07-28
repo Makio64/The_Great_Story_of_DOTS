@@ -1,0 +1,4 @@
+class VisualLine
+
+	constructor:()->
+		return

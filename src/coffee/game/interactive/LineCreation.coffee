@@ -44,12 +44,18 @@ class LineCreation
 		return
 
 	onError:()=>
+		error = new ErrorLineMsg()
+		error.position.x = @points[@points.length-1].x
+		error.position.y = @points[@points.length-1].y
+		Game.stage.addChild(error)
 		@clean()
 		return
 
 
 	onEnd:(data)=>
 		@clean()
+		@area.building.line = @points
+
 		return
 
 	clean:()->

@@ -1,13 +1,13 @@
-class Mine
+class Mine extends Building
 
 	lastTick 			: 0
 
 	tickDuration		: 1000
 
 	constructor:(owner)->
-		texture = PIXI.Texture.fromImage "./img/castle_A.png"
-		super owner, texture
+		super owner, PIXI.Texture.fromImage "./img/mine.png"
 		@lastUnit = @tickDuration
+		@name = "mine"
 		return
 
 	update:(dt)->

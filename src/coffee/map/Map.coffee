@@ -33,9 +33,7 @@ class Map
 
 
 	isWalkable:(x,y)->
-		# console.log "isWalkable#{x},#{y},#{@tiles[x][y] & TileFlag.Walkable}"
 		return @tiles[x][y] & TileFlag.Walkable
-
 
 	isWater:(x,y)->
 		return @tiles[x][y] & TileFlag.Water

@@ -11,16 +11,14 @@ class Main
 		@renderer.view.style.display = "block"
 		@renderer.view.className = "gameRenderer"
 		@renderer.view.style.cursor = "../img/pen.png"
-
-		@lastTime = Date.now()
-		
 		$("#container").append(@renderer.view)
 		
 		DisplayController.instance.init($("#container"), @renderer.view)
-		# DisplayController.instance.display(-375,-143,192,192,0,false)
 		
 		SceneTraveler.getInstance().travelTo(new StartScene(@stage))
 		
+		@lastTime = Date.now()
+
 		requestAnimFrame( @animate )
 		return
 
@@ -30,6 +28,9 @@ class Main
 		t = Date.now()
 		dt = t - @lastTime
 		@lastTime = t
+
+		# console.log dt
+
 		StoryManager.instance.update()
 		Game.instance.update(dt)
 

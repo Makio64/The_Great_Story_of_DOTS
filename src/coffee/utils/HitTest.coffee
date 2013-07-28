@@ -13,7 +13,6 @@ class HitTest
 	@testElipse:(position,object,width,height) ->
 		dx = object.position.x - position.x
 		dy = object.position.y - position.y
-		console.log ((dx * dx)  / (width * width)) + ((dy * dy) / (height * height)) <= 1.0
 		return ((dx * dx)  / (width * width)) + ((dy * dy) / (height * height)) <= 1.0
 
 	@testRect:(position, object)->
