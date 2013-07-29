@@ -25,6 +25,6 @@ class InteractiveController
 			if area.building == null 
 				if Game.instance.canConstruct
 					@moveDelegate = new ShapeCreation(area, Game.stage, data.global.x, data.global.y)
-			else if Game.instance.canLine and area.building.owner == Country.Dots
+			else if Game.instance.canLine and area.building.owner == Country.Dots and area.building.name == "castle"
 				@moveDelegate = new LineCreation(area, Game.stage, data.global.x, data.global.y)
 		return

@@ -7,8 +7,8 @@ class HitTest
 		radius ?= object.radius
 		dx = object.position.x - position.x
 		dy = object.position.y - position.y
-		int dist = Math.sqrt(dx*dx + dy*dy)
-		return dist <= object.radius
+		dist = Math.sqrt(dx*dx + dy*dy)
+		return dist <= radius
 
 	@testElipse:(position,object,width,height) ->
 		dx = object.position.x - position.x

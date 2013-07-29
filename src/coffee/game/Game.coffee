@@ -19,14 +19,24 @@ class Game
 	lineG				: 900
 	lineGBox			: null
 
+	mobilesToRemove		: null
+
 	constructor:()->
 		if Game.instance then throw new Error("You can't create an instance of Game, use Game.instance")
-		@mobiles 		= []
-		@areas 			= []
+		@mobiles 			= []
+		@mobilesToRemove 	= []
+		@areas 				= []
 		
 		return
 
 	update:(dt)->
+		
+		for mobile in @mobilesToRemove
+			idx = @mobiles.indexOf(mobile)
+			@mobiles.splice(idx,1)
+			Game.stage.removeChild(mobile)
+		@mobilesToRemove = []
+
 		if @pause
 			return
 
@@ -37,10 +47,9 @@ class Game
 
 		for area in @areas
 			area.update(dt)
+
 		for mobile in @mobiles
 			mobile.update(dt)
-
-		# @lineG += 1
 
 		return
 
@@ -108,10 +117,10 @@ class Game
 		Game.stage.addChild( building )
 		return
 
-	removeBuilding:(building)->
-		idx = areas.indexOf(building)
-		areas.slice(idx,1)
-		Game.stage.removeChild(building)
+	removeBuilding:(area)->
+		idx = areas.indexOf(area)
+		areas.splice(idx,1)
+		Game.stage.removeChild(area)
 		return
 
 	addMobile:(mobile)->
@@ -120,10 +129,5 @@ class Game
 		return
 
 	removeMobile:(mobile)->
-		idx = @mobiles.indexOf(mobile)
-		@mobiles.slice(idx,1)
-		try
-			Game.stage.removeChild(mobile)
-		catch e
-			
+		@mobilesToRemove.push(mobile)			
 		return
