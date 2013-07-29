@@ -33,6 +33,7 @@ class AMobile extends PIXI.Sprite
 			ennemy = @ennemyInZone()
 			if ennemy
 				@attackEnnemy(ennemy)
+				return
 
 			area = Game.instance.areaAtPosition(@position.x,@position.y) 
 			if area != null and area.building != null and area.building.owner != @owner
@@ -62,8 +63,9 @@ class AMobile extends PIXI.Sprite
 	attackArea:(area)->
 		@line = []
 		@state = MobileState.Attacking
-		@shadow.destroy()
-		@shadow = null
+		if @shadow
+			@shadow.destroy()
+			@shadow = null
 		TweenLite.to(@position,.15,{x:area.position.x,y:area.position.y-area.building.height})
 		TweenLite.to(@position,.15,{delay:.15,x:area.position.x,y:area.position.y,onComplete:@onAttackComplete})
 		return
@@ -77,6 +79,14 @@ class AMobile extends PIXI.Sprite
 	attackEnnemy:(ennemy)->
 		@onDie()
 		ennemy.onDie()
+		battle = BattlePool.getInstance().checkOut()
+		battle.position.x = @position.x
+		battle.visible = true;
+		battle.position.y = @position.y
+		battle.gotoAndPlay(0)
+		battle.play()
+		Game.stage.addChild battle
+
 		return
 
 	moveTo:(x,y)->

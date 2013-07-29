@@ -16,16 +16,21 @@ class ConstructionArea extends PIXI.Sprite
 		return
 
 	add:(@building)->
-		
-		@color = new ColorArea(building.owner)
-		@addChild(@color)
+		if @building.owner == Country.Dots or @building.owner == Country.Square
+			@color = new ColorArea(building.owner)
+			@addChild(@color)
 		
 		building.area = @
 		@addChild(building)
 		return
 
 	removeBuilding:()->
-		@color.remove()
+		if @color != null
+			try
+				@color.remove()
+				@color = null
+			catch e
+			
 		@removeChild(@building)
 		@building.area = null
 		@building = null

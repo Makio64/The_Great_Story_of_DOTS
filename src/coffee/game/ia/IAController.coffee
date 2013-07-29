@@ -100,6 +100,9 @@ class IAController
 			if area.building == null 
 				areas.push(area)
 
+		if areas.length == 0
+			return null
+		
 		return areas[Math.floor(Math.random()*areas.length)]
 
 
@@ -118,16 +121,16 @@ class IAController
 	setup:(@difficulty)->
 		switch difficulty
 			when Difficulty.EASY
+				@nextMoveDuration = 6000 
+				@nextBuildDuration = 20000
+				break
+			when Difficulty.MEDIUM
 				@nextMoveDuration = 5000 
 				@nextBuildDuration = 15000
 				break
-			when Difficulty.MEDIUM
-				@nextMoveDuration = 4000 
-				@nextBuildDuration = 10000
-				break
 			when Difficulty.ADVANCED
 				@nextMoveDuration = 3000 
-				@nextBuildDuration = 7000
+				@nextBuildDuration = 10000
 				break
 			when Difficulty.EXPERT
 				@nextMoveDuration = 1000 

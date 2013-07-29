@@ -314,9 +314,39 @@ h1 {
     margin: auto;
     margin-top: 180px;
 }
+
 #texts{
-    height: 50px
+    /*background: #ff0000;*/
+    height: 100px;
+    width: 300px;
+    margin: auto;
+    font-family: 'Roboto Slab', serif;
+    font-variant: normal;
+    font-weight: 300;
 }
+
+.title {
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+.pink {
+    color: #e40262;
+}
+
+.lineG {
+    display: inline-block;
+    width: 22px;
+    height: 19px;
+    background: url("../img/lineG_icon.png");
+}
+
+.subtitle {
+    font-size: 16px;
+    padding-bottom: 20px;
+}
+
+
 #texts .text{
     margin: auto;
     text-align: center;
@@ -328,8 +358,6 @@ h1 {
 #text {
     padding-top: 130px;
     padding-bottom: 30px;
-    font-family: 'Roboto Slab', serif;
-    font-variant: normal;
     text-align: center;
     width: 100%;
     color: #999;

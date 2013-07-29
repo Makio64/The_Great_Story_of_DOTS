@@ -1,7 +1,6 @@
 class Building extends PIXI.Sprite
 
 	owner 				: null
-	activate			: true
 	life 				: 10
 	name 				: ""
 	area 				: null
@@ -13,7 +12,7 @@ class Building extends PIXI.Sprite
 		@state = BuildingFlag.Construct
 		@anchor.x = .5
 		@anchor.y = 1
-		@position.y = 14
+		@position.y = 26
 		return
 
 

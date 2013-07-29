@@ -1,7 +1,10 @@
 class MoneyAnimation extends PIXI.DisplayObjectContainer
 
-	constructor:(amount)->
+	constructor:(amount,x=0,y=0)->
 		super
+
+		@position.x = x
+		@position.y = y
 
 		if amount>0
 			@bg = new PIXI.Sprite( PIXI.Texture.fromImage("./img/lineG_up_1fig.png"))
@@ -17,15 +20,15 @@ class MoneyAnimation extends PIXI.DisplayObjectContainer
 		@addChild(@bg)
 		@addChild(@text)
 		
-		@position.y = -20
+		@position.y -= 20
 		if amount > 0
-			@position.x = -30
+			@position.x -= 30
 
 		TweenLite.to(@,.2,{alpha:1})
 		if amount>0
-			TweenLite.to(@position,1,{y:-70})
+			TweenLite.to(@position,1,{y:y-70})
 		else
-			TweenLite.to(@position,1,{y:30})
+			TweenLite.to(@position,1,{y:y+30})
 
 		TweenLite.to(@,.2,{alpha:0,delay:.8,onComplete:@dispose})
 		return

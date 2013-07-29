@@ -18,7 +18,7 @@ class StoryManager
 	init:()->
 		@steps =
 			[
-				# @introStoryStep
+				@introStoryStep
 				@buildCastleStep
 				@buildCastleSucessStep
 				@ennemyVillageStep
@@ -38,8 +38,6 @@ class StoryManager
 		if @text!=null
 			i = @oldID
 			TweenLite.to(@text,.3,{delay:delay,opacity:0,onComplete:()=>
-				# $(i).hide()
-				# $(i).css("display","none")
 				$(i).get(0).style.display = "none"
 			})
 			delay += .35
@@ -79,19 +77,19 @@ class StoryManager
 
 
 	introStoryStep:()->
+		DisplayController.instance.display(-275,-143,192,192,0,true)
 		StoryManager.instance.displayText("#story_01", 0)
 
 		king = new King()
-		king.position.x = 350
+		king.position.x = 240
 		king.position.y = 300
 		Game.instance.addChild(king)
 
-		TweenLite.to(king.position, 1.5, { x:450, ease:Linear.easeNone, delay:2 } )
-		TweenLite.to(king.position, 1.5, { x:350, ease:Linear.easeNone, delay:3.5, onComplete: ()->
+		TweenLite.to(king.position, 1.5, { x:350, ease:Linear.easeNone, delay:2 } )
+		TweenLite.to(king.position, 1.5, { x:240, ease:Linear.easeNone, delay:4.5, onComplete: ()->
 			Game.stage.removeChild(king)
 			StoryManager.instance.nextStep()
 		} )
-		
 		return
 
 
@@ -112,11 +110,11 @@ class StoryManager
 
 	
 	ennemyVillageStep:()->
-		DisplayController.instance.display(-375,-143,384,192,0,false)
+		DisplayController.instance.display(-275,-143,384,192,0,false)
 		StoryManager.instance.displayText("#story_04", 2)
 		setTimeout( StoryManager.instance.nextStep, 6000)
 		Game.instance.canLine = true
-		Game.instance.lineGBox.position.x = 680
+		Game.instance.lineGBox.position.x = 480
 		Game.instance.lineGBox.position.y = 140
 		return
 
@@ -125,6 +123,7 @@ class StoryManager
 		StoryManager.instance.conditionChecker = new VillageConditionChecker()
 		StoryManager.instance.displayText("#story_05", 0)
 		return
+
 
 	winFirstBattleStep:()->
 		StoryManager.instance.displayText("#story_06", 0)
@@ -137,7 +136,7 @@ class StoryManager
 
 
 	buildMineSucessStep:()->
-		Game.instance.lineGBox.position.x = 680
+		Game.instance.lineGBox.position.x = 600
 		Game.instance.lineGBox.position.y = 140
 		StoryManager.instance.displayText("#story_08", 0)
 		Game.instance.canTriangle = true
@@ -145,33 +144,45 @@ class StoryManager
 		Game.instance.canConstruct = true
 		Game.instance.canLine = true
 
-		setTimeout( StoryManager.instance.nextStep, 3000 )
+		setTimeout( StoryManager.instance.nextStep, 5000 )
 		return
 
 	firstBattleStep:()->
 		StoryManager.instance.displayText("#story_09", 1.5)
-		DisplayController.instance.display(-375,-143,384,672,0,false)
+		DisplayController.instance.display(-275,-143,384,672,0,false)
 		setTimeout( StoryManager.instance.nextStep, 0 )
 		return
 
 	startBattleStep:()->
 		IAController.instance.setup( Difficulty.EASY )
-		castles = Game.instance.findCastles( 375, 143, 384, 672 )
+		castles = Game.instance.findCastles( 275, 143, 384, 672 )
 		
 		for castle in castles
 			if castle.owner == Country.Square
 				IAController.instance.addCastle( castle )
 
 		StoryManager.instance.conditionChecker = new BigCastleConditionChecker()
-
 		return
 
+
 	castleDestroyStep:()->
-		Game.instance.pause = true
-		DisplayController.instance.display(0,0,1152,672,0,false)
+		Game.instance.canTriangle = true
+		Game.instance.canSquare = true
+		Game.instance.canConstruct = true
+		Game.instance.canLine = true
+
+		IAController.instance.setup( Difficulty.NORMAL )
+		# Game.instance.pause = true
+		castles = Game.instance.findCastles( 0, 0, 1056, 672 )
+		
+		# for castle in castles
+		# 	if castle.owner == Country.Square
+		# 		IAController.instance.addCastle( castle )
+
+		DisplayController.instance.display(0,0,1056,672,0,false)
 		setTimeout( StoryManager.instance.nextStep, 0 )
 		return
 
 	flyingCastleStep:()->
-		Game.instance.shakeScreen(2000)
+		# Game.instance.shakeScreen(2000)
 		return

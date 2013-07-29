@@ -5,6 +5,8 @@ class Castle extends Building
 	units				: null
 	line				: null
 	maxUnit 			: 10
+	lastTick 			: 0
+	tickDuration        : 3000
 
 
 	constructor:(owner, texture=null)->
@@ -15,9 +17,12 @@ class Castle extends Building
 
 		super owner, texture
 
+		if owner == Country.Square
+			@position.y = 20
+
 		@name = "castle"
 
-		@life = 50
+		@life = 30
 		@units = new Array()
 
 		@lastUnit = @unitDuration
@@ -47,7 +52,15 @@ class Castle extends Building
 						unit.followLine(@line.points)
 						return	
 			@createUnit()
-
+		
+		if @owner != Country.Dots
+			return
+		
+		@lastTick -= dt
+		if @lastTick <= 0
+			@lastTick = @tickDuration
+			@addMoney()
+		
 		return
 
 	createUnit:()->
@@ -109,5 +122,10 @@ class Castle extends Building
 
 		@state += BuildingFlag.Destroy
 		
-		
+
+	addMoney:()->
+		Game.instance.lineG += 5
+		anim = new MoneyAnimation(5)
+		@addChild(anim)
+		return
 		

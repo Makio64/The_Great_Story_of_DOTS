@@ -12,12 +12,10 @@ class GameScene extends AScene
 	onEnter:()->
 		@image = new Image()
 		@image.onload = @onLoad
-		@image.src = "./data/map.png"
-
+		@image.src = "./img/map.png"
+		return
 
 	onLoad:()=>
-		
-		DisplayController.instance.display(-375,-143,192,192,0,true)
 
 		canvas = document.createElement('canvas')
 		canvas.width = @image.width
@@ -34,4 +32,3 @@ class GameScene extends AScene
 
 		StoryManager.instance.init()
 		StoryManager.instance.start()
-		console.log Game.instance.map.astar({x:0,y:0},{x:100,y:60})
