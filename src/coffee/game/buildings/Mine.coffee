@@ -5,7 +5,11 @@ class Mine extends Building
 	tickDuration		: 1000
 
 	constructor:(owner)->
-		super owner, PIXI.Texture.fromImage "./img/mine.png"
+		if owner == Country.Square
+			super owner, PIXI.Texture.fromImage "./img/mine.png"
+		else
+			super owner, PIXI.Texture.fromImage "./img/mine_square.png"
+			
 		@lastUnit = @tickDuration
 		@name = "mine"
 		return

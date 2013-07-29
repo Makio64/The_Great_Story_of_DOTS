@@ -122,7 +122,7 @@
     }
 
     BuildingFactory.withData = function(r, g, b, a) {
-      var area, castle;
+      var area, castle, mine, village;
       if (r === 0xFF && g === 0xF0 && b === 0) {
         return new ConstructionArea();
       } else if (r === 0 && g === 0 && b === 0xFF) {
@@ -130,10 +130,15 @@
         castle = new Castle(Country.Square);
         area.add(castle);
         return area;
+      } else if (r === 0x66 && g === 0 && b === 0xFF) {
+        area = new ConstructionArea();
+        mine = new Mine(Country.Square);
+        area.add(mine);
+        return area;
       } else if (r === 0xFF && g === 0 && b === 0xCC) {
         area = new ConstructionArea();
-        castle = new Village(Country.Square);
-        area.add(castle);
+        village = new Village(Country.Square);
+        area.add(village);
         return area;
       }
       if (r === 0x99 && g === 0x99 && b === 0xFF) {
@@ -379,7 +384,11 @@
     Mine.prototype.tickDuration = 1000;
 
     function Mine(owner) {
-      Mine.__super__.constructor.call(this, owner, PIXI.Texture.fromImage("./img/mine.png"));
+      if (owner === Country.Square) {
+        Mine.__super__.constructor.call(this, owner, PIXI.Texture.fromImage("./img/mine.png"));
+      } else {
+        Mine.__super__.constructor.call(this, owner, PIXI.Texture.fromImage("./img/mine_square.png"));
+      }
       this.lastUnit = this.tickDuration;
       this.name = "mine";
       return;

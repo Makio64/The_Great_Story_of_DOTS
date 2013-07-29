@@ -11,10 +11,15 @@ class BuildingFactory
 			castle = new Castle(Country.Square)
 			area.add( castle )
 			return area
+		else if r == 0x66 and g == 0 and b == 0xFF
+			area = new ConstructionArea()
+			mine = new Mine(Country.Square)
+			area.add( mine )
+			return area
 		else if r == 0xFF and g == 0 and b == 0xCC
 			area = new ConstructionArea()
-			castle = new Village(Country.Square)
-			area.add( castle )
+			village = new Village(Country.Square)
+			area.add( village )
 			return area
 		if r == 0x99 and g == 0x99 and b == 0xFF
 			area = new ConstructionAreaBig()
