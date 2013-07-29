@@ -34,3 +34,4 @@ class GameScene extends AScene
 
 		StoryManager.instance.init()
 		StoryManager.instance.start()
+		console.log Game.instance.map.astar({x:0,y:0},{x:100,y:60})

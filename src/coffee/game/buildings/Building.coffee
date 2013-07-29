@@ -4,6 +4,7 @@ class Building extends PIXI.Sprite
 	activate			: true
 	life 				: 10
 	name 				: ""
+	area 				: null
 
 	constructor:(@owner,texture)->
 		super texture
@@ -28,11 +29,11 @@ class Building extends PIXI.Sprite
 
 		return
 
-	damage:()->
+	damage:(amount)->
 		if @life <= 0
 			return
 		
-		@life -= 10
+		@life -= amount
 		
 		if @life == 0
 			@destroy()
@@ -51,9 +52,13 @@ class Building extends PIXI.Sprite
 
 	destroy:()->
 		@parent.building = null
+		@area = null
 		TweenLite.killTweensOf(@scale)
 		TweenLite.to(@scale,.4,{x:0.8,y:0.8,ease:Back.easeIn})
 		TweenLite.to(@,.4,{alpha:0, onComplete:@dispose})
+
+	isDestroy:()->
+		return life>0
 
 	dispose:()->
 		if @parent

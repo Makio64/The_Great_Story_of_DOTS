@@ -3,4 +3,8 @@ class Soldier extends AMobile
 	castle : null
 
 	constructor:(owner,@castle)->
-		super( new PIXI.Texture.fromImage("./img/soldier_dot_S.png"), owner )
+		if owner == Country.Dots
+			texture = new PIXI.Texture.fromImage("./img/soldier_dot_S.png")
+		else 
+			texture = new PIXI.Texture.fromImage("./img/soldier_square_S.png")
+		super( texture, owner )

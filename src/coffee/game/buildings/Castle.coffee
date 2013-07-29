@@ -14,6 +14,8 @@ class Castle extends Building
 
 		super owner, texture
 
+		@name = "castle"
+
 		@life = 50
 		@units = new Array()
 		@line = []
@@ -75,4 +77,10 @@ class Castle extends Building
 		@units.splice(idx,1)
 		unit = null
 		return
+
+	destroy:()->
+		super
+		if owner = Country.Square
+			IAController.instance.removeCastle(@)
+		
 		

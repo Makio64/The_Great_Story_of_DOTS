@@ -4,6 +4,7 @@ class Map
 	height		: 0
 	gridSize 	: 8
 	tiles		: null
+	graph 		: null
 
 	constructor:(@width,@height)->
 		console.log "Map size : #{@width},#{@height}"
@@ -29,8 +30,21 @@ class Map
 
 				@tiles[x/@gridSize][y/@gridSize] = TileFlag.convertDataToFlag(r,g,b,a)
 
+		@graph = @createGraph()
+
 		return
 
+	astar:(start,end)->
+		start 	= @graph.nodes[start.y][start.x]
+		end 	= @graph.nodes[end.y][end.x]
+		
+
+
+		line = astar.search(@graph.nodes, start, end, true)
+		points = []
+		for i in [0...line.length] by 1
+			points[i] = {x:line[i].y*8,y:line[i].x*8}
+		return simplify(points,1,false)
 
 	isWalkable:(x,y)->
 		return @tiles[x][y] & TileFlag.Walkable
@@ -52,6 +66,29 @@ class Map
 				graphic.endFill()
 
 		return graphic
+
+	createGraph:()->
+
+		waterWeight = 5
+		normalWeight = 1
+		array = new Array(@height)
+		for i in [0...@height] by 1
+			array[i] = new Array(@width)
+		
+
+		for x in [0...@width] by 1
+			for y in [0...@height] by 1
+
+				if @isWater(x,y)
+					array[y][x] = waterWeight
+				else if @isWalkable(x,y)
+					array[y][x] = normalWeight
+				else 
+					array[y][x] = 0
+
+		return graph = new Graph(array)
+
+
 
 
 

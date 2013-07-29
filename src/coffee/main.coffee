@@ -16,7 +16,7 @@ class Main
 		DisplayController.instance.init($("#container"), @renderer.view)
 		
 		SceneTraveler.getInstance().travelTo(new StartScene(@stage))
-		
+
 		@lastTime = Date.now()
 
 		requestAnimFrame( @animate )
@@ -29,10 +29,9 @@ class Main
 		dt = t - @lastTime
 		@lastTime = t
 
-		# console.log dt
-
 		StoryManager.instance.update()
 		Game.instance.update(dt)
+		IAController.instance.update(dt)
 
 		return
 

@@ -4,7 +4,9 @@ class StoryManager
 	
 	currentStep 				: 0
 	steps 						: null
+	
 	conditionChecker 			: null
+
 	text 						: null
 	oldID						: ""
 
@@ -16,14 +18,16 @@ class StoryManager
 	init:()->
 		@steps =
 			[
-				# @introStoryStep,
-				@buildCastleStep,
-				@buildCastleSucessStep,
-				@ennemyVillageStep,
-				@moveYourUnitStep,
-				@winFirstBattleStep,
-				@buildMineSucessStep,
-				@firstBattleStep,
+				# @introStoryStep
+				# @buildCastleStep
+				# @buildCastleSucessStep
+				# @ennemyVillageStep
+				# @moveYourUnitStep
+				# @winFirstBattleStep
+				@buildMineSucessStep
+				@firstBattleStep
+				@startBattleStep
+				@castleDestroyStep
 				@flyingCastleStep
 			]
 		return
@@ -141,10 +145,30 @@ class StoryManager
 		return
 
 	firstBattleStep:()->
-		StoryManager.instance.displayText("#story_09", 0)
+		StoryManager.instance.displayText("#story_09", 1.5)
 		DisplayController.instance.display(-375,-143,384,672,0,false)
+		setTimeout( StoryManager.instance.nextStep, 0 )
+		return
+
+	startBattleStep:()->
+		IAController.instance.setup( Difficulty.EASY )
+		castles = Game.instance.findCastles( 375, 143, 384, 672 )
+		
+		for castle in castles
+			if castle.owner == Country.Square
+				IAController.instance.addCastle( castle )
+
+		StoryManager.instance.conditionChecker = new BigCastleConditionChecker()
+
+		return
+
+	castleDestroyStep:()->
+		Game.instance.pause = true
+		DisplayController.instance.display(0,0,1152,672,0,false)
+		setTimeout( StoryManager.instance.nextStep, 0 )
 		return
 
 	flyingCastleStep:()->
-		return
+		Game.instance.shakeScreen(2000)
 
+		return

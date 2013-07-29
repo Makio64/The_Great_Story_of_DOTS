@@ -14,8 +14,9 @@ class Game
 	areas 				: null
 	mobiles 			: null
 
-	lineG				: 0
+	gameEndChecker 		: null
 
+	lineG				: 0
 
 	constructor:()->
 		if Game.instance then throw new Error("You can't create an instance of Game, use Game.instance")
@@ -23,10 +24,12 @@ class Game
 		@areas 			= []
 		return
 
-
 	update:(dt)->
 		if @pause
 			return
+
+		if @gameEndChecker
+			@gameEndChecker.check()
 
 		for area in @areas
 			area.update(dt)
@@ -34,11 +37,11 @@ class Game
 			mobile.update(dt)
 
 		@lineG += 1
-		
 		return
 
-
 	initWithData:(data, width, height)->
+		
+		@gameEndChecker = new GameEndChecker()
 
 		Game.stage.addChild( new PIXI.Sprite(PIXI.Texture.fromImage "./img/bg.png") )
 		@map = new Map(Math.floor(width / 8),Math.floor(height / 8))
@@ -64,9 +67,19 @@ class Game
 		InteractiveController.instance.init(Game.stage)
 		return
 
-
+	findCastles:(x,y,width,height)->
+		castles = []
+		for i in [x...x+width] by 8
+			for j in [y...y+height] by 8
+				area = @areaAtPosition(i,j)
+				if area!=null and area.building!=null and area.building.name == "castle"
+					if castles.indexOf(area.building)==-1
+						castles.push(area.building)
+		return castles
+			
 	addChild:(child)->
 		Game.stage.addChild(child)
+		return
 
 	areaAtPosition:(x,y)->
 		for area in @areas

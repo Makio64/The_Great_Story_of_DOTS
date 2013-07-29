@@ -5,8 +5,9 @@ class AMobile extends PIXI.Sprite
 	line			: null
 	state 			: 0
 	destination		: null
-	speed 			: 0.15
+	speed 			: 0.1
 	shadow 			: null
+	damage 			: 1
 
 	constructor:( texture, owner )->
 		super texture
@@ -109,7 +110,7 @@ class AMobile extends PIXI.Sprite
 	onAttackComplete:()=>
 		area = Game.instance.areaAtPosition(@position.x,@position.y) 
 		if area.building != null
-			area.building.damage()
+			area.building.damage(@damage)
 		if area.building == null #destroy
 			@castle.removeLine()
 		@onDie()
