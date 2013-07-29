@@ -3,6 +3,7 @@ class ShapeCreation
 	stage 				: null
 	graphics 			: null
 	drawArea 			: null
+	helper				: null
 	points 				: null
 	area 				: null
 
@@ -23,7 +24,26 @@ class ShapeCreation
 		@drawArea.alpha = 0
 		TweenLite.to(@drawArea.scale,.3,{x:1,y:1})
 		TweenLite.to(@drawArea,.3,{alpha:1})
-		@stage.addChild(@drawArea)
+
+		if Game.instance.canTriangle and !Game.instance.canSquare
+			@helper = new PIXI.Sprite(PIXI.Texture.fromImage "./img/area_over_pyramid.png")
+		else if !Game.instance.canTriangle and Game.instance.canSquare
+			@helper = new PIXI.Sprite(PIXI.Texture.fromImage "./img/area_over_box.png")
+		else
+			@helper = new PIXI.Sprite(PIXI.Texture.fromImage "./img/area_over_shapes.png")
+
+		@helper.anchor.x = .5
+		@helper.anchor.y = .5
+		@helper.position.x = area.position.x
+		@helper.position.y = area.position.y-20
+		@helper.scale.x = .8
+		@helper.scale.y = .8
+		@helper.alpha = 0
+		TweenLite.to(@helper.scale,.3,{x:1,y:1})
+		TweenLite.to(@helper,.3,{alpha:1})
+		Game.stage.addChild(@helper)
+
+		Game.stage.addChild(@drawArea)
 
 		@graphic = new PIXI.Graphics()
 		@graphic.position.x = 0
@@ -72,6 +92,16 @@ class ShapeCreation
 			
 			TweenLite.to(@drawArea.scale,.3,{x:.8,y:.8})
 			TweenLite.to(@drawArea,.3,{alpha:0})
+			TweenLite.to(@helper.scale,.3,{x:.8,y:.8})
+			TweenLite.to(@helper,.3,{alpha:0})
+
+		else if @area.building != null
+			TweenLite.to(@drawArea.scale,.3,{x:.8,y:.8})
+			TweenLite.to(@drawArea,.3,{alpha:0})
+			TweenLite.to(@helper.scale,.3,{x:.8,y:.8})
+			TweenLite.to(@helper,.3,{alpha:0})
+
+			return
 
 		else if Game.instance.canTriangle and isTriangle(@corners)
 			Game.instance.lineG -= 100
@@ -80,6 +110,8 @@ class ShapeCreation
 			@area.build( new Castle(Country.Dots) )
 			TweenLite.to(@drawArea.scale,.3,{x:1.2,y:1.2})
 			TweenLite.to(@drawArea,.3,{alpha:0})
+			TweenLite.to(@helper.scale,.3,{x:1.2,y:1.2})
+			TweenLite.to(@helper,.3,{alpha:0})
 
 
 		else if Game.instance.canSquare and isSquare(@corners)
@@ -89,9 +121,13 @@ class ShapeCreation
 			@area.build( new Mine(Country.Dots) )
 			TweenLite.to(@drawArea.scale,.3,{x:1.2,y:1.2})
 			TweenLite.to(@drawArea,.3,{alpha:0})
+			TweenLite.to(@helper.scale,.3,{x:1.2,y:1.2})
+			TweenLite.to(@helper,.3,{alpha:0})
 
 
 		else 
+			TweenLite.to(@drawArea.scale,.3,{x:.8,y:.8})
+			TweenLite.to(@drawArea,.3,{alpha:0})
 			TweenLite.to(@drawArea.scale,.3,{x:.8,y:.8})
 			TweenLite.to(@drawArea,.3,{alpha:0})
 

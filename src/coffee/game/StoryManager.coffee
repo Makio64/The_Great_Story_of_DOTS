@@ -113,13 +113,13 @@ class StoryManager
 		DisplayController.instance.display(-275,-143,384,192,0,false)
 		StoryManager.instance.displayText("#story_04", 2)
 		setTimeout( StoryManager.instance.nextStep, 6000)
-		Game.instance.canLine = true
-		Game.instance.lineGBox.position.x = 480
+		Game.instance.lineGBox.position.x = 580
 		Game.instance.lineGBox.position.y = 140
 		return
 
 	
 	moveYourUnitStep:()->
+		Game.instance.canLine = true
 		StoryManager.instance.conditionChecker = new VillageConditionChecker()
 		StoryManager.instance.displayText("#story_05", 0)
 		return
@@ -136,8 +136,6 @@ class StoryManager
 
 
 	buildMineSucessStep:()->
-		Game.instance.lineGBox.position.x = 600
-		Game.instance.lineGBox.position.y = 140
 		StoryManager.instance.displayText("#story_08", 0)
 		Game.instance.canTriangle = true
 		Game.instance.canSquare = true
@@ -171,13 +169,15 @@ class StoryManager
 		Game.instance.canConstruct = true
 		Game.instance.canLine = true
 
-		IAController.instance.setup( Difficulty.NORMAL )
-		# Game.instance.pause = true
+		Game.instance.lineGBox.position.x = 990
+		Game.instance.lineGBox.position.y = 0
+
+		IAController.instance.setup( Difficulty.ADVANCED )
+
 		castles = Game.instance.findCastles( 0, 0, 1056, 672 )
-		
-		# for castle in castles
-		# 	if castle.owner == Country.Square
-		# 		IAController.instance.addCastle( castle )
+		for castle in castles
+			if castle.owner == Country.Square
+				IAController.instance.addCastle( castle )
 
 		DisplayController.instance.display(0,0,1056,672,0,false)
 		setTimeout( StoryManager.instance.nextStep, 0 )

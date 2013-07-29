@@ -1253,6 +1253,8 @@
 
     ShapeCreation.prototype.drawArea = null;
 
+    ShapeCreation.prototype.helper = null;
+
     ShapeCreation.prototype.points = null;
 
     ShapeCreation.prototype.area = null;
@@ -1281,7 +1283,29 @@
       TweenLite.to(this.drawArea, .3, {
         alpha: 1
       });
-      this.stage.addChild(this.drawArea);
+      if (Game.instance.canTriangle && !Game.instance.canSquare) {
+        this.helper = new PIXI.Sprite(PIXI.Texture.fromImage("./img/area_over_pyramid.png"));
+      } else if (!Game.instance.canTriangle && Game.instance.canSquare) {
+        this.helper = new PIXI.Sprite(PIXI.Texture.fromImage("./img/area_over_box.png"));
+      } else {
+        this.helper = new PIXI.Sprite(PIXI.Texture.fromImage("./img/area_over_shapes.png"));
+      }
+      this.helper.anchor.x = .5;
+      this.helper.anchor.y = .5;
+      this.helper.position.x = area.position.x;
+      this.helper.position.y = area.position.y - 20;
+      this.helper.scale.x = .8;
+      this.helper.scale.y = .8;
+      this.helper.alpha = 0;
+      TweenLite.to(this.helper.scale, .3, {
+        x: 1,
+        y: 1
+      });
+      TweenLite.to(this.helper, .3, {
+        alpha: 1
+      });
+      Game.stage.addChild(this.helper);
+      Game.stage.addChild(this.drawArea);
       this.graphic = new PIXI.Graphics();
       this.graphic.position.x = 0;
       this.graphic.position.y = 0;
@@ -1337,6 +1361,29 @@
         TweenLite.to(this.drawArea, .3, {
           alpha: 0
         });
+        TweenLite.to(this.helper.scale, .3, {
+          x: .8,
+          y: .8
+        });
+        TweenLite.to(this.helper, .3, {
+          alpha: 0
+        });
+      } else if (this.area.building !== null) {
+        TweenLite.to(this.drawArea.scale, .3, {
+          x: .8,
+          y: .8
+        });
+        TweenLite.to(this.drawArea, .3, {
+          alpha: 0
+        });
+        TweenLite.to(this.helper.scale, .3, {
+          x: .8,
+          y: .8
+        });
+        TweenLite.to(this.helper, .3, {
+          alpha: 0
+        });
+        return;
       } else if (Game.instance.canTriangle && isTriangle(this.corners)) {
         Game.instance.lineG -= 100;
         Game.instance.lineGBox.spend(100);
@@ -1346,6 +1393,13 @@
           y: 1.2
         });
         TweenLite.to(this.drawArea, .3, {
+          alpha: 0
+        });
+        TweenLite.to(this.helper.scale, .3, {
+          x: 1.2,
+          y: 1.2
+        });
+        TweenLite.to(this.helper, .3, {
           alpha: 0
         });
       } else if (Game.instance.canSquare && isSquare(this.corners)) {
@@ -1359,7 +1413,21 @@
         TweenLite.to(this.drawArea, .3, {
           alpha: 0
         });
+        TweenLite.to(this.helper.scale, .3, {
+          x: 1.2,
+          y: 1.2
+        });
+        TweenLite.to(this.helper, .3, {
+          alpha: 0
+        });
       } else {
+        TweenLite.to(this.drawArea.scale, .3, {
+          x: .8,
+          y: .8
+        });
+        TweenLite.to(this.drawArea, .3, {
+          alpha: 0
+        });
         TweenLite.to(this.drawArea.scale, .3, {
           x: .8,
           y: .8
@@ -1853,12 +1921,12 @@
       DisplayController.instance.display(-275, -143, 384, 192, 0, false);
       StoryManager.instance.displayText("#story_04", 2);
       setTimeout(StoryManager.instance.nextStep, 6000);
-      Game.instance.canLine = true;
-      Game.instance.lineGBox.position.x = 480;
+      Game.instance.lineGBox.position.x = 580;
       Game.instance.lineGBox.position.y = 140;
     };
 
     StoryManager.prototype.moveYourUnitStep = function() {
+      Game.instance.canLine = true;
       StoryManager.instance.conditionChecker = new VillageConditionChecker();
       StoryManager.instance.displayText("#story_05", 0);
     };
@@ -1873,8 +1941,6 @@
     };
 
     StoryManager.prototype.buildMineSucessStep = function() {
-      Game.instance.lineGBox.position.x = 600;
-      Game.instance.lineGBox.position.y = 140;
       StoryManager.instance.displayText("#story_08", 0);
       Game.instance.canTriangle = true;
       Game.instance.canSquare = true;
@@ -1903,13 +1969,21 @@
     };
 
     StoryManager.prototype.castleDestroyStep = function() {
-      var castles;
+      var castle, castles, _i, _len;
       Game.instance.canTriangle = true;
       Game.instance.canSquare = true;
       Game.instance.canConstruct = true;
       Game.instance.canLine = true;
-      IAController.instance.setup(Difficulty.NORMAL);
+      Game.instance.lineGBox.position.x = 990;
+      Game.instance.lineGBox.position.y = 0;
+      IAController.instance.setup(Difficulty.ADVANCED);
       castles = Game.instance.findCastles(0, 0, 1056, 672);
+      for (_i = 0, _len = castles.length; _i < _len; _i++) {
+        castle = castles[_i];
+        if (castle.owner === Country.Square) {
+          IAController.instance.addCastle(castle);
+        }
+      }
       DisplayController.instance.display(0, 0, 1056, 672, 0, false);
       setTimeout(StoryManager.instance.nextStep, 0);
     };
