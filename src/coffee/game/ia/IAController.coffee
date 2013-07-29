@@ -40,12 +40,7 @@ class IAController
 		y = Math.floor(target.position.y / 8)
 		p2 = { x, y }
 
-		console.log p1
-		console.log p2
-
 		line = Game.instance.map.astar(p1, p2)
-
-		console.log line
 
 		castle.line = line
 		return

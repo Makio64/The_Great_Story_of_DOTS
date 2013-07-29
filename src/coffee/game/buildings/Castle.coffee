@@ -6,6 +6,7 @@ class Castle extends Building
 	line				: null
 	maxUnit 			: 10
 
+
 	constructor:(owner, texture=null)->
 		if owner == Country.Dots
 			texture ?= PIXI.Texture.fromImage "./img/castle_A.png"
@@ -28,6 +29,9 @@ class Castle extends Building
 		return
 
 	update:(dt)->
+		if @state & BuildingFlag.Destroy
+			return
+		
 		@lastUnit -= dt
 		if @lastUnit <= 0
 			@lastUnit = @unitDuration
@@ -82,5 +86,10 @@ class Castle extends Building
 		super
 		if owner = Country.Square
 			IAController.instance.removeCastle(@)
+		for i in [@units.length-1..0] by -1
+			unit = @units[i]
+			unit.onDie()
+		@state += BuildingFlag.Destroy
+		
 		
 		

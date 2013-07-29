@@ -5,10 +5,12 @@ class Building extends PIXI.Sprite
 	life 				: 10
 	name 				: ""
 	area 				: null
+	state				: ""
 
 	constructor:(@owner,texture)->
 		super texture
 		@name = ""
+		@state = BuildingFlag.Construct
 		@anchor.x = .5
 		@anchor.y = 1
 		@position.y = 14
@@ -51,8 +53,7 @@ class Building extends PIXI.Sprite
 		return
 
 	destroy:()->
-		@parent.building = null
-		@area = null
+		@area.removeBuilding()
 		TweenLite.killTweensOf(@scale)
 		TweenLite.to(@scale,.4,{x:0.8,y:0.8,ease:Back.easeIn})
 		TweenLite.to(@,.4,{alpha:0, onComplete:@dispose})
@@ -63,3 +64,9 @@ class Building extends PIXI.Sprite
 	dispose:()->
 		if @parent
 			@parent.removeChild(@)
+
+class BuildingFlag
+
+	@None			: 0x000000
+	@Construct 		: 0x000001
+	@Destroy 		: 0x000002

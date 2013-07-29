@@ -17,21 +17,19 @@ class ConstructionArea extends PIXI.Sprite
 
 	add:(@building)->
 		
-		if building.owner == Country.Dots
-			color = new PIXI.Sprite(PIXI.Texture.fromImage "./img/base_dot_s.png")
-
-		else if building.owner == Country.Square
-			color = new PIXI.Sprite(PIXI.Texture.fromImage "./img/base_square_s.png")
-		
-		@addChild(color)
-		color.alpha = 0
-		color.anchor.x = .5
-		color.anchor.y = .5
-		TweenLite.to(color,3,{alpha:1})
+		@color = new ColorArea(building.owner)
+		@addChild(@color)
 		
 		building.area = @
 		@addChild(building)
 		return
+
+	removeBuilding:()->
+		@color.remove()
+		@removeChild(@building)
+		@building.area = null
+		@building = null
+
 
 	update:(dt)->
 		if @building != null
