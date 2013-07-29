@@ -7,6 +7,9 @@ class IAController
 	nextMoveDuration	: 0
 	lastMove			: 0
 
+	nextBuildDuration	: 0
+	lastBuild			: 0
+
 	castles				: null
 
 
@@ -16,6 +19,9 @@ class IAController
 		return
 
 	update:(dt)->
+		if Game.pause
+			return
+		
 		if @castles.length == 0
 			return
 		
@@ -24,7 +30,33 @@ class IAController
 			@lastMove = @nextMoveDuration
 			@newAttack()
 
+		@lastBuild -= dt
+		if @lastBuild <= 0
+			@lastBuild = @nextBuildDuration
+			@newBuild()
+
 		return
+
+
+	newBuild:()->
+			# ...
+		
+		area = @selectEmptyArea()
+		if area == null
+			return
+
+		if @difficulty == Difficulty.EASY
+			if Math.random()>.8
+				building = new Castle(Country.Square)
+			else
+				building = new Mine(Country.Square)
+		else 
+			building = new Castle(Country.Square)
+			
+		
+		area.build( building )
+		return
+
 
 	newAttack:()->
 		castle = @selectRandomCastle()
@@ -40,9 +72,9 @@ class IAController
 		y = Math.floor(target.position.y / 8)
 		p2 = { x, y }
 
-		line = Game.instance.map.astar(p1, p2)
+		points = Game.instance.map.astar(p1, p2)
 
-		castle.line = line
+		castle.setLine( points, false )
 		return
 
 
@@ -60,8 +92,16 @@ class IAController
 	selectRandomCastle:()->
 		if @castles.length == 0
 			return null
-		
 		return @castles[Math.floor(Math.random()*@castles.length)]
+
+	selectEmptyArea:()->
+		areas = []
+		for area in Game.instance.areas
+			if area.building == null 
+				areas.push(area)
+
+		return areas[Math.floor(Math.random()*areas.length)]
+
 
 	selectRandomEnnemyArea:()->
 		areas = []
@@ -79,18 +119,23 @@ class IAController
 		switch difficulty
 			when Difficulty.EASY
 				@nextMoveDuration = 5000 
+				@nextBuildDuration = 15000
 				break
 			when Difficulty.MEDIUM
 				@nextMoveDuration = 4000 
+				@nextBuildDuration = 10000
 				break
 			when Difficulty.ADVANCED
 				@nextMoveDuration = 3000 
+				@nextBuildDuration = 7000
 				break
 			when Difficulty.EXPERT
 				@nextMoveDuration = 1000 
+				@nextBuildDuration = 5000
 				break
 
 		@lastMove = @nextMoveDuration
+		@lastBuild = @nextBuildDuration
 		
 		return
 

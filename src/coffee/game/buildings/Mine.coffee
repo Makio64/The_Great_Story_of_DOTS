@@ -11,11 +11,18 @@ class Mine extends Building
 		return
 
 	update:(dt)->
-		@lastTick += dt
-		if @lastTick - dt <= 0
+		if @owner != Country.Dots
+			return
+		
+		@lastTick -= dt
+		if @lastTick <= 0
 			@lastTick = @tickDuration
 			@addMoney()
+
 		return
 
 	addMoney:()->
+		Game.instance.lineG += 10
+		anim = new MoneyAnimation(10)
+		@addChild(anim)
 		return

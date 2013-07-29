@@ -1,10 +1,10 @@
 class LineCreation
 
 	stage 				: null
-	graphics 			: null
-	drawArea 			: null
+	graphic 			: null
 	points 				: null
 	area 				: null
+	costBox				: null
 
 	constructor:(@area, @stage, x, y)->
 		
@@ -14,12 +14,15 @@ class LineCreation
 		stage.toucstop 		= @onEnd
 
 		@graphic = new PIXI.Graphics()
-		@graphic.position.x = 0
-		@graphic.position.y = 0
 		@stage.addChild(@graphic)
 
 		@points = []
 		@points.push({x,y})
+
+		@costBox = new LineCost()
+		@costBox.position.x = x+10
+		@costBox.position.y = y-5
+		@stage.addChild(@costBox)
 
 		return
 
@@ -36,12 +39,32 @@ class LineCreation
 		@graphic.lineStyle(2, 0x000000, 1)
 		@graphic.moveTo(@points[0].x,@points[0].y)
 
-		
+		cost = @calculateCost()
+
+		@costBox.setCost(Math.floor(cost))
+		@costBox.position.x = pos.x+10
+		@costBox.position.y = pos.y-5
+
+		return
+
+	calculateCost:()->
+		cost = 0
+		coeff = .1
+
+		lastP = null
 		for p in @points
 			@graphic.lineTo(p.x,p.y)
 			@graphic.moveTo(p.x,p.y)
 
-		return
+			if lastP != null
+				cost += @distance(p,lastP)*coeff
+			lastP = p
+
+		return cost
+
+	distance:(p1,p2)->
+		return Math.abs(p1.x-p2.x)+Math.abs(p1.y-p2.y)
+
 
 	onError:()=>
 		error = new ErrorLineMsg()
@@ -53,18 +76,28 @@ class LineCreation
 
 
 	onEnd:(data)=>
+		
 		@clean()
-		@area.building.line = @points
+
+		cost = @calculateCost()
+
+		if cost > Game.instance.lineG
+			msg = new NotEnoughtMoneyMsg()
+			msg.position.x = @points[@points.length-1].x
+			msg.position.y = @points[@points.length-1].y
+			@stage.addChild msg
+			return
+
+		if @area.building != null
+			@area.building.setLine(@points)
+			Game.instance.lineG -= cost
 
 		return
 
+
 	clean:()->
+		@costBox.remove()
 		@graphic.clear()
-		@graphic.lineStyle(2, 0x000000, .8)
-		@graphic.moveTo(@points[0].x,@points[0].y)
-		for p in @points
-			@graphic.lineTo(p.x,p.y)
-			@graphic.moveTo(p.x,p.y)
 
 		TweenLite.to(@graphic,.3,{alpha:0})
 
@@ -74,3 +107,5 @@ class LineCreation
 		@stage.mouseup	 	= null
 		@stage.toucstop 	= null
 		InteractiveController.instance.moveDelegate = null
+		return
+

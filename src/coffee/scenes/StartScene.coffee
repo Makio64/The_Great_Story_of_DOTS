@@ -76,7 +76,7 @@ class StartScene extends AScene
 	onComplete:()=>
 		$("#container").css({width:"0px",height:"0px"})
 		$(".gameRenderer").css({left:"-375px",top:"-143px"})
-		SceneTraveler.getInstance().travelTo(new GameScene(@stage))
+		SceneTraveler.getInstance().travelTo(new LoadScene(@stage))
 		return
 
 	calculateDistance:()=>

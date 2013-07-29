@@ -1,0 +1,27 @@
+<?xml version='1.0'?>
+   <font>
+       <info aa='1' size='14' smooth='1' stretchH='100' bold='0' padding='0,0,0,0' spacing='0,0' charset='' italic='0' unicode='0' face='PMN Caecilia LT'/>
+       <common scaleW='128' packed='0' pages='1' lineHeight='14' scaleH='128' base='14'/>
+       <pages>
+            <page id='0' file='Number.png'/>
+       </pages>
+        <chars count='17'>
+            <char xadvance='16' x='24' chnl='0' yoffset='0' y='54' xoffset='0' id='32' page='0' height='0' width='0'/>
+            <char xadvance='8' x='0' chnl='0' yoffset='0' y='54' xoffset='0' id='49' page='0' height='16' width='22'/>
+            <char xadvance='8' x='96' chnl='0' yoffset='0' y='36' xoffset='0' id='50' page='0' height='16' width='22'/>
+            <char xadvance='8' x='72' chnl='0' yoffset='0' y='36' xoffset='0' id='51' page='0' height='16' width='22'/>
+            <char xadvance='8' x='48' chnl='0' yoffset='0' y='36' xoffset='0' id='52' page='0' height='16' width='22'/>
+            <char xadvance='8' x='24' chnl='0' yoffset='0' y='36' xoffset='0' id='53' page='0' height='16' width='22'/>
+            <char xadvance='8' x='0' chnl='0' yoffset='0' y='36' xoffset='0' id='54' page='0' height='16' width='22'/>
+            <char xadvance='8' x='96' chnl='0' yoffset='0' y='18' xoffset='0' id='55' page='0' height='16' width='22'/>
+            <char xadvance='8' x='72' chnl='0' yoffset='0' y='18' xoffset='0' id='56' page='0' height='16' width='22'/>
+            <char xadvance='8' x='48' chnl='0' yoffset='0' y='18' xoffset='0' id='57' page='0' height='16' width='22'/>
+            <char xadvance='8' x='24' chnl='0' yoffset='0' y='18' xoffset='0' id='48' page='0' height='16' width='22'/>
+            <char xadvance='8' x='0' chnl='0' yoffset='0' y='18' xoffset='0' id='95' page='0' height='16' width='22'/>
+            <char xadvance='8' x='96' chnl='0' yoffset='0' y='0' xoffset='0' id='43' page='0' height='16' width='22'/>
+            <char xadvance='8' x='72' chnl='0' yoffset='0' y='0' xoffset='0' id='45' page='0' height='16' width='22'/>
+            <char xadvance='8' x='48' chnl='0' yoffset='0' y='0' xoffset='0' id='37' page='0' height='16' width='22'/>
+            <char xadvance='8' x='24' chnl='0' yoffset='0' y='0' xoffset='0' id='36' page='0' height='16' width='22'/>
+            <char xadvance='8' x='0' chnl='0' yoffset='0' y='0' xoffset='0' id='61' page='0' height='16' width='22'/>
+       </chars>
+   </font>

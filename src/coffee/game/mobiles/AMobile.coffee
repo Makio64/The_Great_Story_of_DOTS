@@ -109,13 +109,23 @@ class AMobile extends PIXI.Sprite
 
 	onAttackComplete:()=>
 		area = Game.instance.areaAtPosition(@position.x,@position.y) 
-		if area.building != null
+		
+		if area.building == null #already destroyed
+			@onDie()
+			return
+
+		else #damage
 			area.building.damage(@damage)
-		if area.building == null #destroy
+
+		if area.building == null #destroyed by attack
 			@castle.removeLine()
+		
 		@onDie()
 
 	onDie:()=>
+		if @state & MobileState.Die
+			return
+		
 		if @shadow != null
 			@shadow.destroy()
 			@shadow = null

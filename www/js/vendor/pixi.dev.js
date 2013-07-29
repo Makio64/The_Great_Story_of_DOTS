@@ -10259,8 +10259,9 @@ PIXI.BitmapFontLoader.prototype.onXMLLoaded = function()
             var data = {};
             var info = this.ajaxRequest.responseXML.getElementsByTagName("info")[0];
             var common = this.ajaxRequest.responseXML.getElementsByTagName("common")[0];
-            data.font = info.attributes.getNamedItem("face").nodeValue;
+            data.font = info.attributes.getNamedItem("face").nodeValue.replace(/\s/g, "");
             data.size = parseInt(info.attributes.getNamedItem("size").nodeValue, 10);
+            console.log(data.font);
             data.lineHeight = parseInt(common.attributes.getNamedItem("lineHeight").nodeValue, 10);
             data.chars = {};
 

@@ -19,37 +19,42 @@ class Castle extends Building
 
 		@life = 50
 		@units = new Array()
-		@line = []
 
 		@lastUnit = @unitDuration
 		return
 
-	removeLine:()->
-		@line = []
+	setLine:(points, draw=true)->
+		if @line
+			@line.fadeOut()
+		@line = new Line(points,0xed0060)
+		if draw
+			Game.stage.addChild(@line)
 		return
 
 	update:(dt)->
 		if @state & BuildingFlag.Destroy
 			return
+
+		if @line != null
+			@line.update(dt)
 		
 		@lastUnit -= dt
 		if @lastUnit <= 0
 			@lastUnit = @unitDuration
-			if @line.length > 0
+			if @line != null
 				for unit in @units
 					if unit.isWaiting
-						unit.followLine(@line)
+						unit.followLine(@line.points)
 						return	
 			@createUnit()
-			
-		
+
 		return
 
 	createUnit:()->
 		if @units.length >= @maxUnit
 			return
 		
-		if @line == null or @line.length == 0
+		if @line == null
 			b = 0
 			for unit in @units
 				if unit.state == MobileState.Waiting
@@ -59,21 +64,28 @@ class Castle extends Building
 			y = @parent.position.y + Math.sin((5+b)*Math.PI/180)*26
 		
 		else
-			x = @line[0].x
-			y = @line[0].y
+			x = @line.points[0].x
+			y = @line.points[0].y
 
 		unit = new Soldier(@owner,@)
 		unit.position.x = @parent.position.x
 		unit.position.y = @parent.position.y
 		unit.moveTo(x,y)
 		@units.push(unit)
-		
-		Game.instance.addMobile(unit)
-		if @line.length == 0
+
+		if @line == null
 			unit.state = MobileState.Waiting
 		else 
-			unit.followLine( @line )
+			unit.followLine( @line.points )
 		
+		Game.instance.addMobile(unit)
+		
+		return
+
+	removeLine:()->
+		if @line
+			@line.fadeOut()
+			@line = null
 		return
 
 	removeUnit:(unit)->
@@ -86,9 +98,15 @@ class Castle extends Building
 		super
 		if owner = Country.Square
 			IAController.instance.removeCastle(@)
+
 		for i in [@units.length-1..0] by -1
 			unit = @units[i]
 			unit.onDie()
+		
+		if(@line != null)
+			@line.fadeOut()
+			@line = null
+
 		@state += BuildingFlag.Destroy
 		
 		

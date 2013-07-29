@@ -19,11 +19,11 @@ class StoryManager
 		@steps =
 			[
 				# @introStoryStep
-				# @buildCastleStep
-				# @buildCastleSucessStep
-				# @ennemyVillageStep
-				# @moveYourUnitStep
-				# @winFirstBattleStep
+				@buildCastleStep
+				@buildCastleSucessStep
+				@ennemyVillageStep
+				@moveYourUnitStep
+				@winFirstBattleStep
 				@buildMineSucessStep
 				@firstBattleStep
 				@startBattleStep
@@ -116,6 +116,8 @@ class StoryManager
 		StoryManager.instance.displayText("#story_04", 2)
 		setTimeout( StoryManager.instance.nextStep, 6000)
 		Game.instance.canLine = true
+		Game.instance.lineGBox.position.x = 680
+		Game.instance.lineGBox.position.y = 140
 		return
 
 	
@@ -135,6 +137,8 @@ class StoryManager
 
 
 	buildMineSucessStep:()->
+		Game.instance.lineGBox.position.x = 680
+		Game.instance.lineGBox.position.y = 140
 		StoryManager.instance.displayText("#story_08", 0)
 		Game.instance.canTriangle = true
 		Game.instance.canSquare = true
@@ -170,5 +174,4 @@ class StoryManager
 
 	flyingCastleStep:()->
 		Game.instance.shakeScreen(2000)
-
 		return
