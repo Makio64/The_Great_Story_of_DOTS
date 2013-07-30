@@ -146,12 +146,17 @@ class StoryManager
 		return
 
 	firstBattleStep:()->
-		StoryManager.instance.displayText("#story_09", 1.5)
+		StoryManager.instance.displayText("#story_09", 1)
 		DisplayController.instance.display(-275,-143,384,672,0,false)
-		setTimeout( StoryManager.instance.nextStep, 0 )
+		setTimeout( StoryManager.instance.nextStep, 2000 )
 		return
 
 	startBattleStep:()->
+		TweenLite.to($("#story_09"),.3,{delay:.3,opacity:0,onComplete:()->
+			$("#story_09").get(0).style.display = "none"
+		})
+
+		Game.instance.isStart = true
 		IAController.instance.setup( Difficulty.EASY )
 		castles = Game.instance.findCastles( 275, 143, 384, 672 )
 		
@@ -164,6 +169,8 @@ class StoryManager
 
 
 	castleDestroyStep:()->
+
+
 		Game.instance.canTriangle = true
 		Game.instance.canSquare = true
 		Game.instance.canConstruct = true
@@ -172,7 +179,7 @@ class StoryManager
 		Game.instance.lineGBox.position.x = 990
 		Game.instance.lineGBox.position.y = 0
 
-		IAController.instance.setup( Difficulty.ADVANCED )
+		# IAController.instance.setup( Difficulty.ADVANCED )
 
 		castles = Game.instance.findCastles( 0, 0, 1056, 672 )
 		for castle in castles

@@ -302,8 +302,8 @@ textarea {
     }
 }
 
-body {
-    cursor: url("../img/pen.png");
+body , html{
+    cursor: url("../img/pen.png"), auto;
     font-family: 'Roboto Slab', serif;
     font-variant: normal;
     font-weight: 300;
@@ -316,6 +316,26 @@ h1 {
     background: url("../img/01_title_logo.png") no-repeat;
     margin: auto;
     margin-top: 180px;
+}
+
+h1.win {
+    background: url("../img/win_logo.png") no-repeat;
+}
+
+h1.loose {
+    background: url("../img/lose_logo1.png") no-repeat center center;
+    width: 656px;
+    height:175px;
+    margin-bottom: 40px;
+}
+
+#squareWin {
+    opacity: 0;
+    display: none;
+    width: 511px;
+    height: 124px;
+    background: url("../img/lose_logo2.png") no-repeat;
+    margin: auto;
 }
 
 #texts{
@@ -364,7 +384,7 @@ h1 {
     text-align: center;
     width: 100%;
     color: #999;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 #container {
@@ -373,7 +393,7 @@ h1 {
     width: 0;
     height: 0;
     margin: auto;
-    margin-bottom: 350px;
+    margin-bottom: 250px;
 }
 
 #superContainer {
@@ -382,11 +402,18 @@ h1 {
 */    margin: auto;
 }
 
+.twitter-share-button
+{
+    padding-left: 20px;
+}
+
 h5 {
-    color: #999;
+    vertical-align: center;
+    line-height: 20px;
+    color: #aaa;
     text-align: right;
-    padding-right: 20px;
-    font-size: 10px;
+    padding-right: 0px;
+    font-size: 11px;
     font-weight: 400;
 }
 

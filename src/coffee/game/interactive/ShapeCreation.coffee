@@ -1,7 +1,7 @@
 class ShapeCreation
 
 	stage 				: null
-	graphics 			: null
+	graphic 			: null
 	drawArea 			: null
 	helper				: null
 	points 				: null
@@ -89,49 +89,31 @@ class ShapeCreation
 			msg.position.x = @area.position.x
 			msg.position.y = @area.position.y
 			Game.stage.addChild( msg )
-			
-			TweenLite.to(@drawArea.scale,.3,{x:.8,y:.8})
-			TweenLite.to(@drawArea,.3,{alpha:0})
-			TweenLite.to(@helper.scale,.3,{x:.8,y:.8})
-			TweenLite.to(@helper,.3,{alpha:0})
 
 		else if @area.building != null
-			TweenLite.to(@drawArea.scale,.3,{x:.8,y:.8})
-			TweenLite.to(@drawArea,.3,{alpha:0})
-			TweenLite.to(@helper.scale,.3,{x:.8,y:.8})
-			TweenLite.to(@helper,.3,{alpha:0})
-
+			@clean()
 			return
 
 		else if Game.instance.canTriangle and isTriangle(@corners)
 			Game.instance.lineG -= 100
 			Game.instance.lineGBox.spend( 100 )
-
 			@area.build( new Castle(Country.Dots) )
-			TweenLite.to(@drawArea.scale,.3,{x:1.2,y:1.2})
-			TweenLite.to(@drawArea,.3,{alpha:0})
-			TweenLite.to(@helper.scale,.3,{x:1.2,y:1.2})
-			TweenLite.to(@helper,.3,{alpha:0})
-
 
 		else if Game.instance.canSquare and isSquare(@corners)
 			Game.instance.lineG -= 100
 			Game.instance.lineGBox.spend( 100 )
-			
 			@area.build( new Mine(Country.Dots) )
-			TweenLite.to(@drawArea.scale,.3,{x:1.2,y:1.2})
-			TweenLite.to(@drawArea,.3,{alpha:0})
-			TweenLite.to(@helper.scale,.3,{x:1.2,y:1.2})
-			TweenLite.to(@helper,.3,{alpha:0})
 
+		@clean()
 
-		else 
-			TweenLite.to(@drawArea.scale,.3,{x:.8,y:.8})
-			TweenLite.to(@drawArea,.3,{alpha:0})
-			TweenLite.to(@drawArea.scale,.3,{x:.8,y:.8})
-			TweenLite.to(@drawArea,.3,{alpha:0})
+		return
 
+	clean:()->
 
+		TweenLite.to(@drawArea.scale,.3,{x:.8,y:.8})
+		TweenLite.to(@drawArea,.3,{alpha:0})
+		TweenLite.to(@helper.scale,.3,{x:.8,y:.8})
+		TweenLite.to(@helper,.3,{alpha:0})
 		TweenLite.to(@graphic,.3,{alpha:0})
 
 		# remove reference
@@ -140,5 +122,3 @@ class ShapeCreation
 		@stage.mouseup	 	= null
 		@stage.toucstop 	= null
 		InteractiveController.instance.moveDelegate = null
-
-		return

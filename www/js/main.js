@@ -201,7 +201,7 @@
         this.position.y = 20;
       }
       this.name = "castle";
-      this.life = 30;
+      this.life = 20;
       this.units = new Array();
       this.lastUnit = this.unitDuration;
       return;
@@ -335,7 +335,7 @@
       var texture;
       texture = PIXI.Texture.fromImage("./img/castle_B2.png");
       CastleBig.__super__.constructor.call(this, owner, texture);
-      this.life = 200;
+      this.life = 100;
       this.name = "bigCastle";
     }
 
@@ -803,6 +803,8 @@
 
     Game.prototype.canTriangle = false;
 
+    Game.prototype.isStart = false;
+
     Game.prototype.pause = false;
 
     Game.prototype.map = null;
@@ -843,7 +845,14 @@
         return;
       }
       if (this.gameEndChecker) {
-        this.gameEndChecker.check();
+        if (this.gameEndChecker.check() && this.isStart) {
+          this.pause = true;
+          if (this.gameEndChecker.isWin) {
+            this.onWin();
+          } else {
+            this.onLoose();
+          }
+        }
       }
       if (this.lineGBox) {
         this.lineGBox.update();
@@ -858,6 +867,54 @@
         mobile = _ref2[_k];
         mobile.update(dt);
       }
+    };
+
+    Game.prototype.onWin = function() {
+      var image;
+      image = new PIXI.Sprite(PIXI.Texture.fromImage("./img/win_text.png"));
+      image.anchor.x = .5;
+      image.anchor.y = .5;
+      image.scale.x = .8;
+      image.scale.y = .8;
+      image.position.x = 528;
+      image.position.y = 336;
+      image.alpha = 0;
+      Game.stage.addChild(image);
+      TweenLite.to(image.scale, .8, {
+        x: 1,
+        y: 1,
+        ease: Back.easeOut
+      });
+      TweenLite.to(image, .8, {
+        alpha: 1
+      });
+      $("h1").addClass("win");
+      setTimeout(Game.instance.closeGame, 4000);
+    };
+
+    Game.prototype.closeGame = function() {
+      DisplayController.instance.display(0, 0, 0, 0, 0);
+      TweenLite.to($("body"), 1.5, {
+        scrollTop: 0,
+        delay: .5,
+        ease: Quad.easeOut
+      });
+    };
+
+    Game.prototype.onLoose = function() {
+      $("h1").addClass("loose");
+      TweenLite.to($("#squareWin"), 4, {
+        autoAlpha: 1,
+        delay: 1,
+        onStart: function() {
+          return $("#squareWin").css("display", "block");
+        }
+      });
+      DisplayController.instance.display(0, 0, 0, 0, .5);
+      TweenLite.to($("body"), 1.5, {
+        scrollTop: 0,
+        ease: Quad.easeOut
+      });
     };
 
     Game.prototype.initWithData = function(data, width, height) {
@@ -1249,7 +1306,7 @@
   ShapeCreation = (function() {
     ShapeCreation.prototype.stage = null;
 
-    ShapeCreation.prototype.graphics = null;
+    ShapeCreation.prototype.graphic = null;
 
     ShapeCreation.prototype.drawArea = null;
 
@@ -1354,88 +1411,36 @@
         msg.position.x = this.area.position.x;
         msg.position.y = this.area.position.y;
         Game.stage.addChild(msg);
-        TweenLite.to(this.drawArea.scale, .3, {
-          x: .8,
-          y: .8
-        });
-        TweenLite.to(this.drawArea, .3, {
-          alpha: 0
-        });
-        TweenLite.to(this.helper.scale, .3, {
-          x: .8,
-          y: .8
-        });
-        TweenLite.to(this.helper, .3, {
-          alpha: 0
-        });
       } else if (this.area.building !== null) {
-        TweenLite.to(this.drawArea.scale, .3, {
-          x: .8,
-          y: .8
-        });
-        TweenLite.to(this.drawArea, .3, {
-          alpha: 0
-        });
-        TweenLite.to(this.helper.scale, .3, {
-          x: .8,
-          y: .8
-        });
-        TweenLite.to(this.helper, .3, {
-          alpha: 0
-        });
+        this.clean();
         return;
       } else if (Game.instance.canTriangle && isTriangle(this.corners)) {
         Game.instance.lineG -= 100;
         Game.instance.lineGBox.spend(100);
         this.area.build(new Castle(Country.Dots));
-        TweenLite.to(this.drawArea.scale, .3, {
-          x: 1.2,
-          y: 1.2
-        });
-        TweenLite.to(this.drawArea, .3, {
-          alpha: 0
-        });
-        TweenLite.to(this.helper.scale, .3, {
-          x: 1.2,
-          y: 1.2
-        });
-        TweenLite.to(this.helper, .3, {
-          alpha: 0
-        });
       } else if (Game.instance.canSquare && isSquare(this.corners)) {
         Game.instance.lineG -= 100;
         Game.instance.lineGBox.spend(100);
         this.area.build(new Mine(Country.Dots));
-        TweenLite.to(this.drawArea.scale, .3, {
-          x: 1.2,
-          y: 1.2
-        });
-        TweenLite.to(this.drawArea, .3, {
-          alpha: 0
-        });
-        TweenLite.to(this.helper.scale, .3, {
-          x: 1.2,
-          y: 1.2
-        });
-        TweenLite.to(this.helper, .3, {
-          alpha: 0
-        });
-      } else {
-        TweenLite.to(this.drawArea.scale, .3, {
-          x: .8,
-          y: .8
-        });
-        TweenLite.to(this.drawArea, .3, {
-          alpha: 0
-        });
-        TweenLite.to(this.drawArea.scale, .3, {
-          x: .8,
-          y: .8
-        });
-        TweenLite.to(this.drawArea, .3, {
-          alpha: 0
-        });
       }
+      this.clean();
+    };
+
+    ShapeCreation.prototype.clean = function() {
+      TweenLite.to(this.drawArea.scale, .3, {
+        x: .8,
+        y: .8
+      });
+      TweenLite.to(this.drawArea, .3, {
+        alpha: 0
+      });
+      TweenLite.to(this.helper.scale, .3, {
+        x: .8,
+        y: .8
+      });
+      TweenLite.to(this.helper, .3, {
+        alpha: 0
+      });
       TweenLite.to(this.graphic, .3, {
         alpha: 0
       });
@@ -1443,7 +1448,7 @@
       this.stage.touchmove = null;
       this.stage.mouseup = null;
       this.stage.toucstop = null;
-      InteractiveController.instance.moveDelegate = null;
+      return InteractiveController.instance.moveDelegate = null;
     };
 
     return ShapeCreation;
@@ -1513,7 +1518,7 @@
 
     AMobile.prototype.destination = null;
 
-    AMobile.prototype.speed = 0.1;
+    AMobile.prototype.speed = 0.07;
 
     AMobile.prototype.shadow = null;
 
@@ -1950,13 +1955,21 @@
     };
 
     StoryManager.prototype.firstBattleStep = function() {
-      StoryManager.instance.displayText("#story_09", 1.5);
+      StoryManager.instance.displayText("#story_09", 1);
       DisplayController.instance.display(-275, -143, 384, 672, 0, false);
-      setTimeout(StoryManager.instance.nextStep, 0);
+      setTimeout(StoryManager.instance.nextStep, 2000);
     };
 
     StoryManager.prototype.startBattleStep = function() {
       var castle, castles, _i, _len;
+      TweenLite.to($("#story_09"), .3, {
+        delay: .3,
+        opacity: 0,
+        onComplete: function() {
+          return $("#story_09").get(0).style.display = "none";
+        }
+      });
+      Game.instance.isStart = true;
       IAController.instance.setup(Difficulty.EASY);
       castles = Game.instance.findCastles(275, 143, 384, 672);
       for (_i = 0, _len = castles.length; _i < _len; _i++) {
@@ -1976,7 +1989,6 @@
       Game.instance.canLine = true;
       Game.instance.lineGBox.position.x = 990;
       Game.instance.lineGBox.position.y = 0;
-      IAController.instance.setup(Difficulty.ADVANCED);
       castles = Game.instance.findCastles(0, 0, 1056, 672);
       for (_i = 0, _len = castles.length; _i < _len; _i++) {
         castle = castles[_i];
@@ -2060,7 +2072,7 @@
       _ref = Game.instance.areas;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         area = _ref[_i];
-        if (area.building !== null && area.building.name === "castle" && (area.building.owner = Country.Dots)) {
+        if (area.building !== null && area.building.owner === Country.Dots) {
           return false;
         }
       }
@@ -2073,10 +2085,10 @@
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         area = _ref[_i];
         if (area.building !== null && area.building.name === "bigCastle") {
-          return true;
+          return false;
         }
       }
-      return false;
+      return true;
     };
 
     return GameEndChecker;

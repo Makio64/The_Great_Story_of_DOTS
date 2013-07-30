@@ -22,7 +22,7 @@ class Castle extends Building
 
 		@name = "castle"
 
-		@life = 30
+		@life = 20
 		@units = new Array()
 
 		@lastUnit = @unitDuration

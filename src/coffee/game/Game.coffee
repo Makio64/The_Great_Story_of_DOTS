@@ -7,6 +7,7 @@ class Game
 	canLine				: false
 	canSquare			: false
 	canTriangle 		: false
+	isStart 			: false
 
 	pause 				: false
 
@@ -41,7 +42,13 @@ class Game
 			return
 
 		if @gameEndChecker
-			@gameEndChecker.check()
+			if @gameEndChecker.check() and @isStart
+				@pause = true
+				if @gameEndChecker.isWin
+					@onWin()
+				else
+					@onLoose()
+
 		if @lineGBox 
 			@lineGBox.update()
 
@@ -51,6 +58,42 @@ class Game
 		for mobile in @mobiles
 			mobile.update(dt)
 
+		return
+
+	onWin:()->
+		image = new PIXI.Sprite(PIXI.Texture.fromImage "./img/win_text.png")
+		image.anchor.x = .5
+		image.anchor.y = .5
+		image.scale.x = .8
+		image.scale.y = .8
+		image.position.x = 528
+		image.position.y = 336 
+		image.alpha = 0
+		Game.stage.addChild image
+
+		TweenLite.to(image.scale,.8,{x:1,y:1,ease:Back.easeOut})
+		TweenLite.to(image,.8,{alpha:1})
+		
+		$("h1").addClass("win")
+
+		
+		setTimeout(Game.instance.closeGame,4000)
+		return
+
+	closeGame:()->
+		DisplayController.instance.display(0,0,0,0,0)
+		TweenLite.to($("body"), 1.5, { scrollTop:0,delay:.5,ease:Quad.easeOut})
+		return
+
+	onLoose:()->
+
+		$("h1").addClass("loose")
+
+		TweenLite.to($("#squareWin"),4,{autoAlpha:1,delay:1,onStart:()->$("#squareWin").css("display","block")})
+		DisplayController.instance.display(0,0,0,0,.5)
+		TweenLite.to($("body"), 1.5, { scrollTop:0,ease:Quad.easeOut})
+		
+		# setTimeout(Game.instance.closeGame,4000)
 		return
 
 	initWithData:(data, width, height)->

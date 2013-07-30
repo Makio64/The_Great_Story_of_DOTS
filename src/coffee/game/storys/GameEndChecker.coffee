@@ -19,7 +19,7 @@ class GameEndChecker
 
 	checkPlayerLoose:()->
 		for area in Game.instance.areas
-			if area.building != null and area.building.name == "castle" and area.building.owner = Country.Dots
+			if area.building != null and area.building.owner == Country.Dots
 				return false
 
 		return true
@@ -27,6 +27,6 @@ class GameEndChecker
 	checkPlayerWin:()->
 		for area in Game.instance.areas
 			if area.building != null and area.building.name == "bigCastle"
-				return true
+				return false
 		
-		return false
+		return true

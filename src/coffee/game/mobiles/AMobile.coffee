@@ -5,7 +5,7 @@ class AMobile extends PIXI.Sprite
 	line			: null
 	state 			: 0
 	destination		: null
-	speed 			: 0.1
+	speed 			: 0.07
 	shadow 			: null
 	damage 			: 1
 
