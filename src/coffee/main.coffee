@@ -35,5 +35,10 @@ class Main
 
 		return
 
+main = null
 $(document).ready ->
+	window.IS_CHROME = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+	window.IS_FIREFOX = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
 	main = new Main()
+	return

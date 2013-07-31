@@ -86,7 +86,7 @@ class StoryManager
 		Game.instance.addChild(king)
 
 		TweenLite.to(king.position, 1.5, { x:350, ease:Linear.easeNone, delay:2 } )
-		TweenLite.to(king.position, 1.5, { x:240, ease:Linear.easeNone, delay:4.5, onComplete: ()->
+		TweenLite.to(king.position, 1.5, { x:240, ease:Linear.easeNone, delay:4.1, onComplete: ()->
 			Game.stage.removeChild(king)
 			StoryManager.instance.nextStep()
 		} )
@@ -112,7 +112,7 @@ class StoryManager
 	ennemyVillageStep:()->
 		DisplayController.instance.display(-275,-143,384,192,0,false)
 		StoryManager.instance.displayText("#story_04", 2)
-		setTimeout( StoryManager.instance.nextStep, 6000)
+		setTimeout( StoryManager.instance.nextStep, 5000)
 		Game.instance.lineGBox.position.x = 580
 		Game.instance.lineGBox.position.y = 140
 		return
@@ -152,7 +152,7 @@ class StoryManager
 		return
 
 	startBattleStep:()->
-		TweenLite.to($("#story_09"),.3,{delay:.3,opacity:0,onComplete:()->
+		TweenLite.to($("#story_09"),1,{delay:4,opacity:0,onComplete:()->
 			$("#story_09").get(0).style.display = "none"
 		})
 
@@ -178,8 +178,6 @@ class StoryManager
 
 		Game.instance.lineGBox.position.x = 990
 		Game.instance.lineGBox.position.y = 0
-
-		# IAController.instance.setup( Difficulty.ADVANCED )
 
 		castles = Game.instance.findCastles( 0, 0, 1056, 672 )
 		for castle in castles
