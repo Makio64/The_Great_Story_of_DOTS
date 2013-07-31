@@ -52,12 +52,17 @@ class Map
 	isWater:(x,y)->
 		return @tiles[x][y] & TileFlag.Water
 
+	isMarsh:(x,y)->
+		return @tiles[x][y] & TileFlag.Marsh
+
 	toGraphic:()->
 		graphic = new PIXI.Graphics()
 		for x in [0...@width] by 1
 			for y in [0...@height] by 1
 				if @isWater(x,y)
 					graphic.beginFill( 0x0000FF,.5 )
+				else if @isMarsh(x,y)
+					graphic.beginFill( 0xFF00FF,.5 )
 				else if @isWalkable(x,y)
 					graphic.beginFill( 0x000000,.5 )
 				else 
@@ -69,8 +74,10 @@ class Map
 
 	createGraph:()->
 
+		marshWeight = 4
 		waterWeight = 5
 		normalWeight = 1
+
 		array = new Array(@height)
 		for i in [0...@height] by 1
 			array[i] = new Array(@width)
@@ -81,6 +88,8 @@ class Map
 
 				if @isWater(x,y)
 					array[y][x] = waterWeight
+				else if @isMarsh(x,y)
+					array[y][x] = marshWeight
 				else if @isWalkable(x,y)
 					array[y][x] = normalWeight
 				else 
@@ -98,12 +107,16 @@ class TileFlag
 	@None 		: 0x000000
 	@Walkable 	: 0x000001
 	@Water 		: 0x000002
+	@Marsh 		: 0x000004
 
 
 	@convertDataToFlag:(r,g,b,a)=>
 
 		if r == 0xFF && g == 0 && b == 0
 			return TileFlag.None
+
+		if r == 0x33 && g == 0x99 && b == 0x66
+			return TileFlag.Marsh + TileFlag.Walkable
 		
 		if r == 0x66 && g == 0x99 && b == 0
 			return TileFlag.Water + TileFlag.Walkable

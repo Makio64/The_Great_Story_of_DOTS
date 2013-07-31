@@ -1925,8 +1925,13 @@
     };
 
     AMobile.prototype.move = function(dt) {
-      var distance, moveX, moveY, speedDT;
+      var caseX, caseY, distance, moveX, moveY, speedDT;
       speedDT = this.speed * dt;
+      caseX = Math.floor(this.position.x / 8);
+      caseY = Math.floor(this.position.y / 8);
+      if (Game.instance.map.isMarsh(caseX, caseY)) {
+        speedDT *= .3;
+      }
       while (speedDT > 0) {
         moveX = Math.max(Math.min(this.destination.x - this.position.x, speedDT), -speedDT);
         moveY = Math.max(Math.min(this.destination.y - this.position.y, speedDT), -speedDT);
@@ -2788,6 +2793,10 @@
       return this.tiles[x][y] & TileFlag.Water;
     };
 
+    Map.prototype.isMarsh = function(x, y) {
+      return this.tiles[x][y] & TileFlag.Marsh;
+    };
+
     Map.prototype.toGraphic = function() {
       var graphic, x, y, _i, _j, _ref, _ref1;
       graphic = new PIXI.Graphics();
@@ -2795,6 +2804,8 @@
         for (y = _j = 0, _ref1 = this.height; _j < _ref1; y = _j += 1) {
           if (this.isWater(x, y)) {
             graphic.beginFill(0x0000FF, .5);
+          } else if (this.isMarsh(x, y)) {
+            graphic.beginFill(0xFF00FF, .5);
           } else if (this.isWalkable(x, y)) {
             graphic.beginFill(0x000000, .5);
           } else {
@@ -2808,7 +2819,8 @@
     };
 
     Map.prototype.createGraph = function() {
-      var array, graph, i, normalWeight, waterWeight, x, y, _i, _j, _k, _ref, _ref1, _ref2;
+      var array, graph, i, marshWeight, normalWeight, waterWeight, x, y, _i, _j, _k, _ref, _ref1, _ref2;
+      marshWeight = 4;
       waterWeight = 5;
       normalWeight = 1;
       array = new Array(this.height);
@@ -2819,6 +2831,8 @@
         for (y = _k = 0, _ref2 = this.height; _k < _ref2; y = _k += 1) {
           if (this.isWater(x, y)) {
             array[y][x] = waterWeight;
+          } else if (this.isMarsh(x, y)) {
+            array[y][x] = marshWeight;
           } else if (this.isWalkable(x, y)) {
             array[y][x] = normalWeight;
           } else {
@@ -2842,9 +2856,14 @@
 
     TileFlag.Water = 0x000002;
 
+    TileFlag.Marsh = 0x000004;
+
     TileFlag.convertDataToFlag = function(r, g, b, a) {
       if (r === 0xFF && g === 0 && b === 0) {
         return TileFlag.None;
+      }
+      if (r === 0x33 && g === 0x99 && b === 0x66) {
+        return TileFlag.Marsh + TileFlag.Walkable;
       }
       if (r === 0x66 && g === 0x99 && b === 0) {
         return TileFlag.Water + TileFlag.Walkable;

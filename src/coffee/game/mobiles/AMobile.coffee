@@ -97,6 +97,13 @@ class AMobile extends PIXI.Sprite
 	move:(dt)->
 
 		speedDT = @speed*dt
+
+		caseX = Math.floor(@position.x/8)
+		caseY = Math.floor(@position.y/8)
+
+		if Game.instance.map.isMarsh(caseX,caseY)
+			speedDT *= .3
+		
 		
 		while speedDT > 0
 
