@@ -87,6 +87,9 @@ class Game
 	closeGame:()->
 		DisplayController.instance.display(0,0,0,0,0)
 		TweenLite.to($("body"), 1.5, { scrollTop:0,delay:.5,ease:Quad.easeOut})
+		TweenLite.to($("#ending"), 1.4, { scrollTop:0,delay:2.1, opacity:1, ease:Quad.easeOut, onStart:()->
+			$("#ending").css('display','block')
+		})
 		return
 
 	onLoose:()->

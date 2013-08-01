@@ -6,7 +6,7 @@ class Castle extends Building
 	line				: null
 	maxUnit 			: 10
 	lastTick 			: 0
-	tickDuration        : 3000
+	tickDuration        : 9000
 
 
 	constructor:(owner, texture=null)->
@@ -60,8 +60,8 @@ class Castle extends Building
 		if @lastTick <= 0
 			@lastTick = @tickDuration
 			@addMoney()
-		
 		return
+
 
 	createUnit:()->
 		if @units.length >= @maxUnit
@@ -92,8 +92,8 @@ class Castle extends Building
 			unit.followLine( @line.points )
 		
 		Game.instance.addMobile(unit)
-		
 		return
+
 
 	removeLine:()->
 		if @line
@@ -101,11 +101,13 @@ class Castle extends Building
 			@line = null
 		return
 
+
 	removeUnit:(unit)->
 		idx = @units.indexOf(unit)
 		@units.splice(idx,1)
 		unit = null
 		return
+
 
 	destroy:()->
 		super
@@ -121,6 +123,7 @@ class Castle extends Building
 			@line = null
 
 		@state += BuildingFlag.Destroy
+		return
 		
 
 	addMoney:()->

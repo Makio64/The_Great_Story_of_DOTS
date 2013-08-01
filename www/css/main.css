@@ -417,6 +417,26 @@ h5 {
     font-weight: 400;
 }
 
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg)
+    }
+    to { 
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+#loading {
+    display: none;
+}
+
+#loading img {
+    -webkit-animation-name:             rotate; 
+    -webkit-animation-duration:         0.5s; 
+    -webkit-animation-iteration-count:  infinite;
+    -webkit-animation-timing-function: linear;
+}
+
 h5 a{
     color: #e40262;
 }
@@ -430,3 +450,13 @@ h5 a:hover{
     margin: auto;
     /*border: 2px #444 solid;*/
 }
+
+#ending{ display:none; opacity: 0; margin-top:-30px; text-align: center; color:#fff; font-weight: 200; }
+#ending .created {font-size: 24px; margin-bottom: 10px;}
+#ending .author {font-size: 18px; letter-spacing: 3px;margin-bottom: 10px;}
+#ending a{color: #e40262;}
+#ending a:hover{color: #fff;}
+#ending .for{ font-size: 14px; margin-bottom: 50px;}
+#ending .thanks{ font-size: 24px; padding: 0; }
+#ending p { font-size: 14px; line-height: 13px; height: 13px;padding:0px; margin:.5em;}
+#ending .shares{margin-top: 30px;}

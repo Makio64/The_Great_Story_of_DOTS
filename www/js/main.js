@@ -235,7 +235,7 @@
 
     Castle.prototype.lastTick = 0;
 
-    Castle.prototype.tickDuration = 3000;
+    Castle.prototype.tickDuration = 9000;
 
     function Castle(owner, texture) {
       if (texture == null) {
@@ -368,7 +368,7 @@
         this.line.fadeOut();
         this.line = null;
       }
-      return this.state += BuildingFlag.Destroy;
+      this.state += BuildingFlag.Destroy;
     };
 
     Castle.prototype.addMoney = function() {
@@ -1184,6 +1184,15 @@
         scrollTop: 0,
         delay: .5,
         ease: Quad.easeOut
+      });
+      TweenLite.to($("#ending"), 1.4, {
+        scrollTop: 0,
+        delay: 2.1,
+        opacity: 1,
+        ease: Quad.easeOut,
+        onStart: function() {
+          return $("#ending").css('display', 'block');
+        }
       });
     };
 
